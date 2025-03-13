@@ -85,12 +85,6 @@ def is_long_lower_shadow(data):
 class Strategy:
     def __init__(self):
         print("官式引线大法策略初始化完成")
-        print("策略描述：")
-        print("1. 每30秒获取btc数据")
-        print("2. 判断是否出现长上引线")
-        print("3. 判断是否出现长下引线")
-        print("4. 如果出现长上引线，则空单")
-        print("5. 如果出现长下引线，则多单")
         print("--------------------------------")
         print("监控中。。。")
         self.callback = None
