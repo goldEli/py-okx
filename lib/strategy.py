@@ -100,6 +100,8 @@ class Strategy:
         while True:
             for symbol in symbol_list:
                 data = get_kline_data(symbol)
+                if data is None:
+                    continue
                 if is_long_upper_shadow(data):
                     self.callback(data, "short")
                 elif is_long_lower_shadow(data):
