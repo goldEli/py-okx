@@ -1,0 +1,11 @@
+
+{
+    "BTC-USDT-SWAP": {
+        "ticker_size": "0.01",
+        "sz": "0.08"
+    },
+    "ETH-USDT-SWAP": {
+        "ticker_size": "0.001",
+        "sz": "0.4"
+    }
+}

@@ -3,7 +3,8 @@ import okx.MarketData as MarketData
 from lib.config import get_okx_info
 from datetime import datetime
 api_key, secret_key, passphrase, flag = get_okx_info()
-market_api = MarketData.MarketAPI(api_key, secret_key, passphrase, flag)
+print("数据:实盘" if flag == "0" else "数据:模拟盘")
+market_api = MarketData.MarketAPI(flag=flag)
 
 
 def get_kline_data_1d(symbol):
@@ -62,8 +63,11 @@ def get_kline_data(symbol):
 
     # 第2根K线
     second_candle = candles['data'][1]
+    last_candle = candles['data'][0]
+    # print(second_candle)
 
     timestamp, open, high, low, close, volume, turn_over, turn_over_rate, count = second_candle
+    last_price = last_candle[4]
 
     # 获取1天中最高价和最低价
     data_1d = get_1d_high_low(symbol)
@@ -83,5 +87,6 @@ def get_kline_data(symbol):
         'turn_over_rate': turn_over_rate,
         'count': count,
         '1d_high': data_1d['1d_high'],
-        '1d_low': data_1d['1d_low']
+        '1d_low': data_1d['1d_low'],
+        'last_price': float(last_price)
     }
