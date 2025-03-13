@@ -38,12 +38,11 @@ def callback(data, direction):
     order_status['is_order'] = True
     # 将时间戳加入cache
     cache[timestamp] = True
-    print("order", data['symbol'], direction, data['last_price'])
-    place_market_order(data['symbol'], direction, data['last_price'])
     print("--------------------------")
     print("官式引线大法触发")
     print(f"交易对：{data['symbol']}")
     print(f"时间：{datetime.fromtimestamp(int(data['timestamp']) / 1000).strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"最新价：{data['last_price']}")
     print(f"开盘价：{data['open']}")
     print(f"最高价：{data['high']}")
     print(f"最低价：{data['low']}")
