@@ -5,7 +5,8 @@ from lib.market import get_kline_data
 multiple = 0.08
 
 # 交易对列表
-symbol_list = ['BTC-USDT', 'ETH-USDT', 'SOL-USDT', 'DOGE-USDT', 'XRP-USDT', 'TRUMP-USDT']
+# 'TRUMP-USDT'
+symbol_list = ['BTC-USDT', 'ETH-USDT', 'SOL-USDT', 'DOGE-USDT', 'XRP-USDT']
 
 # 是否是长上引线
 def is_long_upper_shadow(data):
@@ -103,6 +104,6 @@ class Strategy:
                     self.callback(data, "short")
                 elif is_long_lower_shadow(data):
                     self.callback(data, "long")
-
+                time.sleep(1)
             time.sleep(30)
 

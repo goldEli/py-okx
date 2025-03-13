@@ -4,39 +4,22 @@ from lib.config import get_okx_info
 from datetime import datetime
 api_key, secret_key, passphrase, flag = get_okx_info()
 market_api = MarketData.MarketAPI(api_key, secret_key, passphrase, flag)
-# 获取btc1天数据
-def get_btc_data_1d():
-    symbol = 'BTC-USDT'  # 交易对
-    timeframe = '1d'     # 时间周期（1 小时）
-    limit = 1          # 获取的 K 线数量（最多 100 条）
-
-    # 调用 API 获取 K 线数据
-    candles = market_api.get_candlesticks(instId=symbol, bar=timeframe, limit=limit)
-
-    data = candles['data'][0]
-
-    return data
 
 
 def get_kline_data_1d(symbol):
     # symbol = 'BTC-USDT'  # 交易对
-    timeframe = '1d'     # 时间周期（1 小时）
+    timeframe = '1D'     # 时间周期（1 小时）
     limit = 1          # 获取的 K 线数量（最多 100 条）
 
     # 调用 API 获取 K 线数据
     candles = market_api.get_candlesticks(instId=symbol, bar=timeframe, limit=limit)
 
+
+
     data = candles['data'][0]
 
     return data
 
-# 获取btc一天中最高价和最低价
-def get_btc_data_1d_high_low():
-    timestamp, open, high, low, close, volume, turn_over, turn_over_rate, count = get_btc_data_1d()
-    return {
-        '1d_high': high,
-        '1d_low': low
-    }
 
 def get_1d_high_low(symbol):
     timestamp, open, high, low, close, volume, turn_over, turn_over_rate, count = get_kline_data_1d(symbol)
@@ -44,26 +27,6 @@ def get_1d_high_low(symbol):
         '1d_high': high,
         '1d_low': low
     }
-
-# 获取btc k线 15分钟
-def get_btc_data():
-    # 获取 BTC-USDT 的 1 小时 K 线数据
-    symbol = 'BTC-USDT'  # 交易对
-    timeframe = '15m'     # 时间周期（1 小时）
-    limit = 5          # 获取的 K 线数量（最多 100 条）
-    
-
-    # 调用 API 获取 K 线数据
-    candles = market_api.get_candlesticks(instId=symbol, bar=timeframe, limit=limit)
-
-    # 第2根K线
-    second_candle = candles['data'][1]
-
-    timestamp, open, high, low, close, volume, turn_over, turn_over_rate, count = second_candle
-
-
-    return timestamp, open, high, low, close, volume, turn_over, turn_over_rate, count
-
 
 
 # 获取btc k线 15分钟
