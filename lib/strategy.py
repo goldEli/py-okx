@@ -1,8 +1,11 @@
 import time
-from lib.market import get_btc_data
+from lib.market import get_kline_data
 
 # 倍数
-multiple = 5
+multiple = 0.08
+
+# 交易对列表
+symbol_list = ['BTC-USDT', 'ETH-USDT', 'SOL-USDT', 'DOGE-USDT', 'XRP-USDT', 'TRUMP-USDT']
 
 # 是否是长上引线
 def is_long_upper_shadow(data):
@@ -11,9 +14,13 @@ def is_long_upper_shadow(data):
     open = float(data['open'])
     close = float(data['close'])
     low = float(data['low'])
+    # 1天中最高价
+    high_1d = float(data['1d_high'])
+    # 1天中最低价
+    low_1d = float(data['1d_low'])
 
-    h1 = 0
-    h2 = 0
+    h1 = 0 # 11.331
+    h2 = 0 # 10.435
     if open > close:
         h1 = open
         h2 = close
@@ -22,14 +29,14 @@ def is_long_upper_shadow(data):
         h2 = open
 
     # 上引线长度
-    upper_shadow_length = abs(high - h1)
+    upper_shadow_length = abs(high - h1) # 12.431 - 11.331 = 1.1
     # 下引线长度
-    lower_shadow_length = abs(h2 - low)
-    # 蜡烛长度取绝对值
-    candle_length = abs(open - close)
+    lower_shadow_length = abs(h2 - low) # 10.435 - 10.425 = 0.01
 
     # 上引线长度是下引线长度的5倍, 上影线是蜡烛的5倍
-    if upper_shadow_length > lower_shadow_length * multiple and upper_shadow_length > candle_length * multiple:
+    # 1.1 + 11.331 = 12.431
+    # 1.1 / 12.431 = 0.0884
+    if high > high_1d and (upper_shadow_length / (upper_shadow_length + h1)) > multiple:
         return True
 
     return False    
@@ -41,10 +48,22 @@ def is_long_lower_shadow(data):
     open = float(data['open'])
     close = float(data['close'])
     low = float(data['low'])
+    
+     #'high': '10.757',       # 最高价
+            #'open': '10.683',       # 开盘价
+            #'close': '10.726',      # 收盘价
+            #'low': '8',        # 最低价
+            #'1d_high': '11',    # 日最高价
+            #'1d_low': '6'      # 日最低价
 
 
-    h1 = 0
-    h2 = 0
+    # 1天中最高价
+    high_1d = float(data['1d_high'])
+    # 1天中最低价
+    low_1d = float(data['1d_low'])
+
+    h1 = 0 # 10.726
+    h2 = 0 # 10.683
     if open > close:
         h1 = open
         h2 = close
@@ -52,15 +71,13 @@ def is_long_lower_shadow(data):
         h1 = close
         h2 = open
 
-    # 下引线长度
-    lower_shadow_length =  abs(h2 - low) # 50
     # 上引线长度
-    upper_shadow_length = abs(high - h1) # 10
-    # 蜡烛长度
-    candle_length = abs(close - open) # 10
+    upper_shadow_length = abs(high - h1)
+    # 下引线长度
+    lower_shadow_length = abs(h2 - low) # 10.726 - 8 = 2.726
 
     # 上引线长度是下引线长度的5倍, 上影线是蜡烛的5倍
-    if lower_shadow_length > upper_shadow_length * multiple and lower_shadow_length > candle_length * multiple:
+    if low < low_1d and lower_shadow_length/(lower_shadow_length + h2) > multiple :
         return True
 
     return False    
@@ -86,13 +103,12 @@ class Strategy:
     def run(self):
         # 每30秒获取btc数据
         while True:
-            data = get_btc_data()
-            timeStamp, open, high, low, close, volume, turn_over, turn_over_rate, count = data
-            if is_long_upper_shadow({'high': high, 'open': open, 'close': close, 'low': low}):
-                self.callback(data, "short")
-
-            if is_long_lower_shadow({'high': high, 'open': open, 'close': close, 'low': low}):
-                self.callback(data, "long")
+            for symbol in symbol_list:
+                data = get_kline_data(symbol)
+                if is_long_upper_shadow(data):
+                    self.callback(data, "short")
+                elif is_long_lower_shadow(data):
+                    self.callback(data, "long")
 
             time.sleep(30)
 
