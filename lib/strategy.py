@@ -4,6 +4,8 @@ from lib.market import get_kline_data
 # 倍数
 multiple = 0.08
 
+bias = 0.96
+
 # 交易对列表
 # 'TRUMP-USDT'
 symbol_list = ['BTC-USDT', 'ETH-USDT', 'SOL-USDT', 'DOGE-USDT', 'XRP-USDT']
@@ -37,7 +39,7 @@ def is_long_upper_shadow(data):
     # 上引线长度是下引线长度的5倍, 上影线是蜡烛的5倍
     # 1.1 + 11.331 = 12.431
     # 1.1 / 12.431 = 0.0884
-    if high > high_1d and (upper_shadow_length / (upper_shadow_length + h1)) > multiple:
+    if high > high_1d * bias and (upper_shadow_length / (upper_shadow_length + h1)) > multiple:
         return True
 
     return False    
@@ -78,7 +80,7 @@ def is_long_lower_shadow(data):
     lower_shadow_length = abs(h2 - low) # 10.726 - 8 = 2.726
 
     # 上引线长度是下引线长度的5倍, 上影线是蜡烛的5倍
-    if low < low_1d and lower_shadow_length/(lower_shadow_length + h2) > multiple :
+    if low < low_1d * bias and lower_shadow_length/(lower_shadow_length + h2) > multiple :
         return True
 
     return False    
