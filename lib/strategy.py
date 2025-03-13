@@ -1,26 +1,32 @@
 import time
 from lib.market import get_btc_data
 
+# 倍数
+multiple = 5
 
 # 是否是长上引线
 def is_long_upper_shadow(data):
-    high = data['high']
-    open = data['open']
-    close = data['close']
-    low = data['low']
+    # str to number
+    high = float(data['high'])
+    open = float(data['open'])
+    close = float(data['close'])
+    low = float(data['low'])
+
+    h1 = 0
+    h2 = 0
+    if open > close:
+        h1 = open
+        h2 = close
+    else:
+        h1 = close
+        h2 = open
 
     # 上引线长度
-    upper_shadow_length = high - open
+    upper_shadow_length = abs(high - h1)
     # 下引线长度
-    lower_shadow_length = close - low
-    # 蜡烛长度
-    candle_length = open - close
-
-    # 倍数
-    multiple = 5
-
-    if candle_length < 0 or lower_shadow_length < 0 or upper_shadow_length < 0:
-        return False
+    lower_shadow_length = abs(h2 - low)
+    # 蜡烛长度取绝对值
+    candle_length = abs(open - close)
 
     # 上引线长度是下引线长度的5倍, 上影线是蜡烛的5倍
     if upper_shadow_length > lower_shadow_length * multiple and upper_shadow_length > candle_length * multiple:
@@ -31,23 +37,27 @@ def is_long_upper_shadow(data):
 
 # 是否是长下引线
 def is_long_lower_shadow(data):
-    high = data['high']
-    open = data['open']
-    close = data['close']
-    low = data['low']
+    high = float(data['high'])
+    open = float(data['open'])
+    close = float(data['close'])
+    low = float(data['low'])
+
+
+    h1 = 0
+    h2 = 0
+    if open > close:
+        h1 = open
+        h2 = close
+    else:
+        h1 = close
+        h2 = open
 
     # 下引线长度
-    lower_shadow_length =  open - low # 50
+    lower_shadow_length =  abs(h2 - low) # 50
     # 上引线长度
-    upper_shadow_length = high - close # 10
+    upper_shadow_length = abs(high - h1) # 10
     # 蜡烛长度
-    candle_length = close - open # 10
-
-    # 倍数
-    multiple = 5
-
-    if candle_length < 0 or lower_shadow_length < 0 or upper_shadow_length < 0:
-        return False
+    candle_length = abs(close - open) # 10
 
     # 上引线长度是下引线长度的5倍, 上影线是蜡烛的5倍
     if lower_shadow_length > upper_shadow_length * multiple and lower_shadow_length > candle_length * multiple:
