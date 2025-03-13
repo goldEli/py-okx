@@ -23,6 +23,9 @@ order_status = {
     'is_order': False
 }
 
+
+# place_market_order('BTC-USDT-SWAP', 'long', 1900.11)
+
 # 注册回调
 def callback(data, direction):
     # 获取时间戳
@@ -35,6 +38,7 @@ def callback(data, direction):
     order_status['is_order'] = True
     # 将时间戳加入cache
     cache[timestamp] = True
+    print("order", data['symbol'], direction, data['last_price'])
     place_market_order(data['symbol'], direction, data['last_price'])
     print("--------------------------")
     print("官式引线大法触发")

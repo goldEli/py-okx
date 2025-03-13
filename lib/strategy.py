@@ -3,7 +3,7 @@ from lib.market import get_kline_data
 from lib.config import get_symbol_list
 
 # 倍数
-multiple = 0.01
+multiple = 0.008
 # multiple = 0.001
 
 bias = 0.97
@@ -115,5 +115,5 @@ class Strategy:
                 elif is_long_lower_shadow(data):
                     self.callback(data, "long")
                 time.sleep(1)
-            time.sleep(30)
+            time.sleep(10)
 

@@ -41,6 +41,6 @@ def get_real_config():
 # 获取okx info
 def get_okx_info():
 
-    # return get_real_config()
-    return get_demo_config()
+    return get_real_config()
+    # return get_demo_config()
     

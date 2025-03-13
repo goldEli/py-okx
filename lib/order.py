@@ -5,9 +5,16 @@ from lib.config import get_coin_config
 
 api_key, secret_key, passphrase, flag = get_okx_info()
 
-trade_api = Trade.TradeAPI(api_key, secret_key, passphrase, flag)  # test=True 为模拟交易
+print(api_key, secret_key, passphrase, flag)
 
-account_api = Account.AccountAPI(api_key, secret_key, passphrase, flag)
+trade_api = Trade.TradeAPI(api_key, secret_key, passphrase, flag=flag)  # test=True 为模拟交易
+
+account_api = Account.AccountAPI(api_key, secret_key, passphrase, flag=flag)
+
+# 止盈率
+tp_rate = 1.05
+# 止损率
+sl_rate = 0.95
 
 # 下限价委托单
 def place_limit_order():
@@ -40,9 +47,11 @@ def place_market_order(symbol, s, last_price):
    posSide = "long" if s == "long" else "short"
    sz = get_coin_config()[symbol]["sz"]
    print("开始下单:", symbol, s, last_price, sz)
-
-   tpOrdPx = last_price * 1.1 if s == "long" else last_price * 0.9
-   slOrdPx = last_price * 0.9 if s == "long" else last_price * 1.1
+   print("side", side)
+   print("posSide", posSide)
+   print("--------------------------------")
+   tpOrdPx = last_price * tp_rate if s == "long" else last_price * sl_rate 
+   slOrdPx = last_price * sl_rate if s == "long" else last_price * tp_rate 
 
    # 一位小数
    tpOrdPx = round(tpOrdPx, 1)
