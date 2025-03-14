@@ -44,3 +44,11 @@ def get_okx_info():
     return get_real_config()
     # return get_demo_config()
     
+
+def get_email_info():
+    return {
+        "user": config['email_user'],
+        "token": config['email_token'],
+        "host": config['email_host'],
+        "to_email": config['to_email']
+    }

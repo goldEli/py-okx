@@ -2,6 +2,7 @@ import okx.Trade as Trade
 import okx.Account as Account
 from lib.config import get_okx_info
 from lib.config import get_coin_config
+from lib.email import send_email_for_trade
 
 api_key, secret_key, passphrase, flag = get_okx_info()
 
@@ -46,6 +47,9 @@ def place_market_order(symbol, s, last_price):
    side = "buy" if s == "long" else "sell"
    posSide = "long" if s == "long" else "short"
    sz = get_coin_config()[symbol]["sz"]
+
+
+
    print("开始下单:", symbol, s, last_price, sz)
    print("side", side)
    print("posSide", posSide)
@@ -59,23 +63,24 @@ def place_market_order(symbol, s, last_price):
 
    # limit order
    result = trade_api.place_order(
-           instId=symbol,
-           tdMode="isolated",
-           side=side,
-           posSide=posSide,
-           ordType="market",
-           # 止盈
-           tpOrdPx=tpOrdPx,
-           tpTriggerPx=tpOrdPx,
-           # 止损
-           slOrdPx=slOrdPx,
-           slTriggerPx=slOrdPx,
-           sz=sz
+       instId=symbol,
+       tdMode="isolated",
+       side=side,
+       posSide=posSide,
+       ordType="market",
+       # 止盈
+       tpOrdPx=tpOrdPx,
+       tpTriggerPx=tpOrdPx,
+       # 止损
+       slOrdPx=slOrdPx,
+       slTriggerPx=slOrdPx,
+       sz=sz
        #     pxUsdt="100",
    )
    print(result)
 
    if result["code"] == "0":
+          send_email_for_trade(last_price, last_price * sl_rate, last_price * tp_rate, side)
           print("Successful order request，order_id = ",result["data"][0]["ordId"])
    else:
           print("Unsuccessful order request，error_code = ",result["data"][0]["sCode"], ", Error_message = ", result["data"][0]["sMsg"])
