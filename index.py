@@ -31,11 +31,12 @@ def callback(data, direction):
     # 获取时间戳
     timestamp = data['timestamp']
     # 如果时间戳在cache中，则不执行
-    if order_status['is_order'] == True:
-        return
+    # if order_status['is_order'] == True:
+    #     return
     if timestamp in cache:
         return
-    order_status['is_order'] = True
+    # order_status['is_order'] = True
+    place_market_order(data['symbol'], direction, data['last_price'])
     # 将时间戳加入cache
     cache[timestamp] = True
     print("--------------------------")

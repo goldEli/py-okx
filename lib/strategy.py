@@ -42,7 +42,8 @@ def is_long_upper_shadow(data):
     # 上引线长度是下引线长度的5倍, 上影线是蜡烛的5倍
     # 1.1 + 11.331 = 12.431
     # 1.1 / 12.431 = 0.0884
-    if high > high_1d * bias and (upper_shadow_length / (upper_shadow_length + h1)) > multiple:
+    # if high > high_1d * bias and (upper_shadow_length / (upper_shadow_length + h1)) > multiple:
+    if (upper_shadow_length / high) > multiple:
     # if (upper_shadow_length / (upper_shadow_length + h1)) > multiple:
         return True
 
@@ -85,7 +86,8 @@ def is_long_lower_shadow(data):
 
     # 上引线长度是下引线长度的5倍, 上影线是蜡烛的5倍
     # print(low * bias, low_1d, lower_shadow_length/(lower_shadow_length + h2), multiple)
-    if low * bias < low_1d  and lower_shadow_length/(lower_shadow_length + h2) > multiple :
+    # if low * bias < low_1d  and lower_shadow_length/(lower_shadow_length + h2) > multiple :
+    if lower_shadow_length/(lower_shadow_length + h2) > multiple :
     # if lower_shadow_length/(lower_shadow_length + h2) > multiple :
         return True
 

@@ -5,16 +5,16 @@ from lib.config import get_coin_config
 
 api_key, secret_key, passphrase, flag = get_okx_info()
 
-print(api_key, secret_key, passphrase, flag)
+# print(api_key, secret_key, passphrase, flag)
 
-trade_api = Trade.TradeAPI(api_key, secret_key, passphrase, flag=flag)  # test=True 为模拟交易
+trade_api = Trade.TradeAPI(api_key, secret_key, passphrase, flag=flag)  
 
 account_api = Account.AccountAPI(api_key, secret_key, passphrase, flag=flag)
 
 # 止盈率
-tp_rate = 1.05
+tp_rate = 1.01
 # 止损率
-sl_rate = 0.95
+sl_rate = 0.97
 
 # 下限价委托单
 def place_limit_order():
