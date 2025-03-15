@@ -4,6 +4,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from lib.config import get_email_info
+import threading
 
 email_info = get_email_info()
 
@@ -15,7 +16,7 @@ def send_email(subject, body):
     # 创建邮件对象
     msg = MIMEMultipart()
     msg['From'] = email_info['user']
-    msg['To'] = email_info['to_email']
+    msg['To'] = ','.join(email_info['to_email_list'])
     msg['Subject'] = subject
 
     # 添加邮件正文
@@ -28,18 +29,20 @@ def send_email(subject, body):
         server.login(email_info['user'], email_info['token'])  # 登录邮箱
 
         # 发送邮件
-        server.sendmail(email_info['user'], email_info['to_email'], msg.as_string())
+        server.sendmail(email_info['user'], email_info['to_email_list'], msg.as_string())
         print("邮件发送成功！")
 
     except Exception as e:
         print(f"邮件发送失败: {e}")
 
     finally:
-        server.quit()  # 关闭连接
+        if server:
+            server.quit()  # 关闭连接
 
 
-def send_email_for_trade(current_price, stop_loss_price, take_profit_price, side):
+def send_email_for_trade(current_price, stop_loss_price, take_profit_price, side, symbol):
     sideText = "多" if side == "buy" else "空"
-    subject = f"下单成功通知"
-    body = f"官式针法触发开{sideText}\n\n\n当前价格：{current_price}\n止盈价格：{take_profit_price}\n止损价格：{stop_loss_price}\n方向：{side}"
-    send_email(subject, body)
+    subject = f"告警提示"
+    body = f"官式针法触发开{sideText}\n\nsymbol：{symbol}\nprice：{current_price}\ntake_profit_price：{take_profit_price}\nstop_loss_price：{stop_loss_price}\nside：{side}"
+    # 邮件发送使用单独的线程, 防止阻塞主进程. 
+    threading.Thread(target=send_email, args=(subject, body)).start()

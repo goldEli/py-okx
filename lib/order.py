@@ -48,6 +48,7 @@ def place_market_order(symbol, s, last_price):
    posSide = "long" if s == "long" else "short"
    sz = get_coin_config()[symbol]["sz"]
 
+   send_email_for_trade(last_price, last_price * sl_rate, last_price * tp_rate, side, symbol)
 
 
    print("开始下单:", symbol, s, last_price, sz)
@@ -80,7 +81,6 @@ def place_market_order(symbol, s, last_price):
    print(result)
 
    if result["code"] == "0":
-          send_email_for_trade(last_price, last_price * sl_rate, last_price * tp_rate, side)
           print("Successful order request，order_id = ",result["data"][0]["ordId"])
    else:
           print("Unsuccessful order request，error_code = ",result["data"][0]["sCode"], ", Error_message = ", result["data"][0]["sMsg"])

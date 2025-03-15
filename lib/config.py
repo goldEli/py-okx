@@ -50,5 +50,6 @@ def get_email_info():
         "user": config['email_user'],
         "token": config['email_token'],
         "host": config['email_host'],
-        "to_email": config['to_email']
+        "to_email": config['to_email'],
+        "to_email_list": config['to_email_list']
     }
