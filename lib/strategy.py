@@ -97,6 +97,7 @@ class Strategy:
     def __init__(self):
         print("官式引线大法策略初始化完成")
         print("--------------------------------")
+        print(f"监控的交易对：{symbol_list}")
         print("监控中。。。")
         self.callback = None
     # 注册回调
@@ -116,6 +117,5 @@ class Strategy:
                     self.callback(data, "short")
                 elif is_long_lower_shadow(data):
                     self.callback(data, "long")
-                time.sleep(1)
-            time.sleep(10)
+            time.sleep(1)
 
