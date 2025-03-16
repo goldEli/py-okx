@@ -1,7 +1,8 @@
 import time
 from lib.market import get_kline_data
 from lib.config import get_symbol_list
-
+from datetime import datetime
+import threading
 # 倍数
 multiple = 0.008
 # multiple = 0.001
@@ -107,6 +108,9 @@ class Strategy:
 
     # 执行策略
     def run(self):
+
+        # 每小时打印一次时间
+        threading.Thread(target=self.print_time).start()
         # 每30秒获取btc数据
         while True:
             for symbol in symbol_list:
@@ -118,4 +122,10 @@ class Strategy:
                 elif is_long_lower_shadow(data):
                     self.callback(data, "long")
             time.sleep(1)
+
+    # 打印时间
+    def print_time(self):
+        while True:
+            print(f"当前时间：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+            time.sleep(8 * 60 * 60) # 8小时打印一次
 
