@@ -5,31 +5,31 @@
         "price_precision": 1
     },
     "ETH-USDT-SWAP": {
-        "sz": "2",
+        "sz": "4",
         "price_precision": 2
     },
     "TRUMP-USDT-SWAP": {
-        "sz": "500",
+        "sz": "700",
         "price_precision": 3
     },
     "SOL-USDT-SWAP": {
-        "sz": "4",
+        "sz": "6",
         "price_precision": 2
     },
     "TON-USDT-SWAP": {
-        "sz": "200",
+        "sz": "250",
         "price_precision": 3
     },
     "DOGE-USDT-SWAP": {
-        "sz": "4",
+        "sz": "5",
         "price_precision": 5
     },
     "ADA-USDT-SWAP": {
-        "sz": "10",
+        "sz": "12",
         "price_precision": 4
     },
     "XRP-USDT-SWAP": {
-        "sz": "3",
+        "sz": "4",
         "price_precision": 4
     }
 }
