@@ -8,5 +8,20 @@
     },
     "TRUMP-USDT-SWAP": {
         "sz": "100"
+    },
+    "SOL-USDT-SWAP": {
+        "sz": "4"
+    },
+    "TON-USDT-SWAP": {
+        "sz": "200"
+    },
+    "DOGE-USDT-SWAP": {
+        "sz": "4"
+    },
+    "ADA-USDT-SWAP": {
+        "sz": "10"
+    },
+    "XRP-USDT-SWAP": {
+        "sz": "3"
     }
 }
