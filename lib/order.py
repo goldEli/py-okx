@@ -12,11 +12,6 @@ trade_api = Trade.TradeAPI(api_key, secret_key, passphrase, flag=flag)
 
 account_api = Account.AccountAPI(api_key, secret_key, passphrase, flag=flag)
 
-# 止盈率
-tp_rate = 1.01
-# 止损率
-sl_rate = 0.97
-
 # 下限价委托单
 def place_limit_order():
    # limit order
@@ -41,6 +36,15 @@ def place_limit_order():
    else:
           print("Unsuccessful order request，error_code = ",result["data"][0]["sCode"], ", Error_message = ", result["data"][0]["sMsg"])
 
+# 获取止盈和止损
+def get_tp_sl(s, last_price):
+       if s == "long":
+              tpOrdPx = last_price * 1.01
+              slOrdPx = last_price * 0.97
+       else:
+              tpOrdPx = last_price * 0.99
+              slOrdPx = last_price * 1.03
+       return tpOrdPx, slOrdPx
 
 # 下市价委托单
 def place_market_order(symbol, s, last_price):
@@ -48,19 +52,20 @@ def place_market_order(symbol, s, last_price):
    posSide = "long" if s == "long" else "short"
    sz = get_coin_config()[symbol]["sz"]
 
-   send_email_for_trade(last_price, last_price * sl_rate, last_price * tp_rate, side, symbol)
-
-
-   print("开始下单:", symbol, s, last_price, sz)
-   print("side", side)
-   print("posSide", posSide)
-   print("--------------------------------")
-   tpOrdPx = last_price * tp_rate if s == "long" else last_price * sl_rate 
-   slOrdPx = last_price * sl_rate if s == "long" else last_price * tp_rate 
+   tpOrdPx, slOrdPx = get_tp_sl(s, last_price)
 
    # 一位小数
    tpOrdPx = round(tpOrdPx, 1)
    slOrdPx = round(slOrdPx, 1)
+
+   print("开始下单:", symbol, s, last_price, sz)
+   print("side", side)
+   print("posSide", posSide)
+   print("tpOrdPx", tpOrdPx)
+   print("slOrdPx", slOrdPx)
+   print("--------------------------------")
+
+   send_email_for_trade(last_price, slOrdPx, tpOrdPx, side, symbol)
 
    # limit order
    result = trade_api.place_order(
