@@ -3,6 +3,8 @@ from lib.market import get_kline_data
 from lib.config import get_symbol_list
 from datetime import datetime
 import threading
+from lib.acount import get_account_balance
+
 # 倍数
 multiple = 0.008
 # multiple = 0.001
@@ -127,5 +129,6 @@ class Strategy:
     def print_time(self):
         while True:
             print(f"当前时间：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+            get_account_balance()
             time.sleep(8 * 60 * 60) # 8小时打印一次
 
