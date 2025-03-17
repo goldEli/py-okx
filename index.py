@@ -27,7 +27,7 @@ order_status = {
 # place_market_order('BTC-USDT-SWAP', 'long', 1900.11)
 
 # 注册回调
-def callback(data, direction):
+def callback(data, direction, amplitude):
     # 获取时间戳
     timestamp = data['timestamp']
     # 如果时间戳在cache中，则不执行
@@ -36,7 +36,7 @@ def callback(data, direction):
     if timestamp in cache:
         return
     # order_status['is_order'] = True
-    place_market_order(data['symbol'], direction, data['last_price'])
+    place_market_order(data['symbol'], direction, data['last_price'], amplitude)
     # 将时间戳加入cache
     cache[timestamp] = True
     print("--------------------------")

@@ -5,7 +5,7 @@
         "price_precision": 1
     },
     "ETH-USDT-SWAP": {
-        "sz": "500",
+        "sz": "0.2",
         "price_precision": 2
     },
     "TRUMP-USDT-SWAP": {

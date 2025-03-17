@@ -16,86 +16,6 @@ bias = 0.97
 symbol_list = get_symbol_list()
 # symbol_list = ['ETH-USDT-SWAP']
 
-# 是否是长上引线
-def is_long_upper_shadow(data):
-    # str to number
-    high = float(data['high'])
-    open = float(data['open'])
-    close = float(data['close'])
-    low = float(data['low'])
-    # 1天中最高价
-    high_1d = float(data['1d_high'])
-    # 1天中最低价
-    low_1d = float(data['1d_low'])
-
-    h1 = 0 # 11.331
-    h2 = 0 # 10.435
-    if open > close:
-        h1 = open
-        h2 = close
-    else:
-        h1 = close
-        h2 = open
-
-    # 上引线长度
-    upper_shadow_length = abs(high - h1) # 12.431 - 11.331 = 1.1
-    # 下引线长度
-    lower_shadow_length = abs(h2 - low) # 10.435 - 10.425 = 0.01
-
-    # 上引线长度是下引线长度的5倍, 上影线是蜡烛的5倍
-    # 1.1 + 11.331 = 12.431
-    # 1.1 / 12.431 = 0.0884
-    # if high > high_1d * bias and (upper_shadow_length / (upper_shadow_length + h1)) > multiple:
-    if (upper_shadow_length / high) > multiple:
-    # if (upper_shadow_length / (upper_shadow_length + h1)) > multiple:
-        return True
-
-    return False    
-
-
-# 是否是长下引线
-def is_long_lower_shadow(data):
-    high = float(data['high'])
-    open = float(data['open'])
-    close = float(data['close'])
-    low = float(data['low'])
-    
-     #'high': '10.757',       # 最高价
-            #'open': '10.683',       # 开盘价
-            #'close': '10.726',      # 收盘价
-            #'low': '8',        # 最低价
-            #'1d_high': '11',    # 日最高价
-            #'1d_low': '6'      # 日最低价
-
-
-    # 1天中最高价
-    high_1d = float(data['1d_high'])
-    # 1天中最低价
-    low_1d = float(data['1d_low'])
-
-    h1 = 0 # 10.726
-    h2 = 0 # 10.683
-    if open > close:
-        h1 = open
-        h2 = close
-    else:
-        h1 = close
-        h2 = open
-
-    # 上引线长度
-    upper_shadow_length = abs(high - h1)
-    # 下引线长度
-    lower_shadow_length = abs(h2 - low) # 10.726 - 8 = 2.726
-
-    # 上引线长度是下引线长度的5倍, 上影线是蜡烛的5倍
-    # print(low * bias, low_1d, lower_shadow_length/(lower_shadow_length + h2), multiple)
-    # if low * bias < low_1d  and lower_shadow_length/(lower_shadow_length + h2) > multiple :
-    if lower_shadow_length/(lower_shadow_length + h2) > multiple :
-    # if lower_shadow_length/(lower_shadow_length + h2) > multiple :
-        return True
-
-    return False    
-
 class Strategy:
     def __init__(self):
         print("官式引线大法策略初始化完成")
@@ -103,9 +23,93 @@ class Strategy:
         print(f"监控的交易对：{symbol_list}")
         print("监控中。。。")
         self.callback = None
+        # 振幅
+        self.amplitude = 0.008
+        
     # 注册回调
     def register_callback(self, callback):
         self.callback = callback
+
+    # 设置振幅
+    def set_amplitude(self, amplitude):
+        if amplitude > 0.05:
+            self.amplitude = 0.02
+            return
+        if amplitude < 0.01:
+            self.amplitude = 0.005
+            return
+        if amplitude > 0.01:
+            self.amplitude = 0.01
+            return
+        self.amplitude = amplitude
+
+    # 是否是长上引线
+    def is_long_upper_shadow(self, data):
+        # str to number
+        high = float(data['high'])
+        open = float(data['open'])
+        close = float(data['close'])
+        low = float(data['low'])
+        # 1天中最高价
+        high_1d = float(data['1d_high'])
+        # 1天中最低价
+        low_1d = float(data['1d_low'])
+
+        h1 = 0 # 11.331
+        h2 = 0 # 10.435
+        if open > close:
+            h1 = open
+            h2 = close
+        else:
+            h1 = close
+            h2 = open
+
+        # 上引线长度
+        upper_shadow_length = abs(high - h1) # 12.431 - 11.331 = 1.1
+        # 下引线长度
+        lower_shadow_length = abs(h2 - low) # 10.435 - 10.425 = 0.01
+
+        # 上引线长度是下引线长度的5倍, 上影线是蜡烛的5倍
+        # 1.1 + 11.331 = 12.431
+        # 1.1 / 12.431 = 0.0884
+        # if high > high_1d * bias and (upper_shadow_length / (upper_shadow_length + h1)) > multiple:
+        if (upper_shadow_length / high) > multiple:
+            self.set_amplitude(upper_shadow_length / high)
+        # if (upper_shadow_length / (upper_shadow_length + h1)) > multiple:
+            return True
+
+        return False    
+
+
+    # 是否是长下引线
+    def is_long_lower_shadow(self, data):
+        high = float(data['high'])
+        open = float(data['open'])
+        close = float(data['close'])
+        low = float(data['low'])
+
+        h1 = 0 # 10.726
+        h2 = 0 # 10.683
+        if open > close:
+            h1 = open
+            h2 = close
+        else:
+            h1 = close
+            h2 = open
+
+        # 上引线长度
+        upper_shadow_length = abs(high - h1)
+        # 下引线长度
+        lower_shadow_length = abs(h2 - low) # 10.726 - 8 = 2.726
+
+        # 上引线长度是下引线长度的5倍, 上影线是蜡烛的5倍
+        # print(low * bias, low_1d, lower_shadow_length/(lower_shadow_length + h2), multiple)
+        # if low * bias < low_1d  and lower_shadow_length/(lower_shadow_length + h2) > multiple :
+        if lower_shadow_length/(lower_shadow_length + h2) > multiple :
+            self.set_amplitude(lower_shadow_length/(lower_shadow_length + h2))
+            return True
+
+        return False    
 
 
     # 执行策略
@@ -119,10 +123,10 @@ class Strategy:
                 data = get_kline_data(symbol)
                 if data is None:
                     continue
-                if is_long_upper_shadow(data):
-                    self.callback(data, "short")
-                elif is_long_lower_shadow(data):
-                    self.callback(data, "long")
+                if self.is_long_upper_shadow(data):
+                    self.callback(data, "short", self.amplitude)
+                elif self.is_long_lower_shadow(data):
+                    self.callback(data, "long", self.amplitude)
             time.sleep(1)
 
     # 打印时间

@@ -37,22 +37,22 @@ def place_limit_order():
           print("Unsuccessful order request，error_code = ",result["data"][0]["sCode"], ", Error_message = ", result["data"][0]["sMsg"])
 
 # 获取止盈和止损
-def get_tp_sl(s, last_price):
+def get_tp_sl(s, last_price, amplitude):
        if s == "long":
-              tpOrdPx = last_price * 1.01
-              slOrdPx = last_price * 0.97
+              tpOrdPx = last_price * (1 + amplitude)
+              slOrdPx = last_price * (1 - amplitude*2)
        else:
-              tpOrdPx = last_price * 0.99
-              slOrdPx = last_price * 1.03
+              tpOrdPx = last_price * (1 - amplitude)
+              slOrdPx = last_price * (1 + amplitude*2)
        return tpOrdPx, slOrdPx
 
 # 下市价委托单
-def place_market_order(symbol, s, last_price):
+def place_market_order(symbol, s, last_price, amplitude=0.008):
    side = "buy" if s == "long" else "sell"
    posSide = "long" if s == "long" else "short"
    sz = get_coin_config()[symbol]["sz"]
 
-   tpOrdPx, slOrdPx = get_tp_sl(s, last_price)
+   tpOrdPx, slOrdPx = get_tp_sl(s, last_price, amplitude)
 
    price_precision = get_price_precision(symbol)
 
