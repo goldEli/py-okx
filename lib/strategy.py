@@ -32,16 +32,10 @@ class Strategy:
 
     # 设置振幅
     def set_amplitude(self, amplitude):
-        if amplitude > 0.05:
-            self.amplitude = 0.02
-            return
         if amplitude < 0.01:
             self.amplitude = 0.005
             return
-        if amplitude > 0.01:
-            self.amplitude = 0.01
-            return
-        self.amplitude = amplitude
+        self.amplitude = 0.01
 
     # 是否是长上引线
     def is_long_upper_shadow(self, data):
