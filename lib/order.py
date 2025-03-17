@@ -3,7 +3,7 @@ import okx.Account as Account
 from lib.config import get_okx_info
 from lib.config import get_coin_config
 from lib.email import send_email_for_trade
-
+from lib.market import get_price_precision
 api_key, secret_key, passphrase, flag = get_okx_info()
 
 # print(api_key, secret_key, passphrase, flag)
@@ -54,9 +54,11 @@ def place_market_order(symbol, s, last_price):
 
    tpOrdPx, slOrdPx = get_tp_sl(s, last_price)
 
+   price_precision = get_price_precision(symbol)
+
    # 一位小数
-   tpOrdPx = round(tpOrdPx, 1)
-   slOrdPx = round(slOrdPx, 1)
+   tpOrdPx = round(tpOrdPx, price_precision)
+   slOrdPx = round(slOrdPx, price_precision)
 
    print("开始下单:", symbol, s, last_price, sz)
    print("side", side)

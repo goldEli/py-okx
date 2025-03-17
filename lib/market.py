@@ -2,6 +2,8 @@
 import okx.MarketData as MarketData
 from lib.config import get_okx_info
 from datetime import datetime
+from lib.config import get_coin_config
+
 api_key, secret_key, passphrase, flag = get_okx_info()
 print("数据:实盘" if flag == "0" else "数据:模拟盘")
 market_api = MarketData.MarketAPI(flag=flag)
@@ -115,3 +117,6 @@ def get_current_price(symbol):
     return {
         'last_price': float(last_price)
     }
+
+def get_price_precision(symbol):
+    return get_coin_config()[symbol]["price_precision"]
