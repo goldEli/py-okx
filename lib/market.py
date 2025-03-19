@@ -3,6 +3,7 @@ import okx.MarketData as MarketData
 from lib.config import get_okx_info
 from datetime import datetime
 from lib.config import get_coin_config
+from lib.email import send_email_for_alert_api_error
 
 api_key, secret_key, passphrase, flag = get_okx_info()
 print("数据:实盘" if flag == "0" else "数据:模拟盘")
@@ -60,6 +61,7 @@ def get_kline_data(symbol):
         candles = market_api.get_candlesticks(instId=symbol, bar=timeframe, limit=limit)
     except Exception as e:
         print(f"获取15分钟K线数据失败{symbol}: {e}")
+        send_email_for_alert_api_error(f"获取15分钟K线数据失败{symbol}: {e}")
         return None
 
     # 第2根K线

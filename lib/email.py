@@ -5,6 +5,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from lib.config import get_email_info
 import threading
+import time
 
 email_info = get_email_info()
 
@@ -46,3 +47,21 @@ def send_email_for_trade(current_price, stop_loss_price, take_profit_price, side
     body = f"官式针法触发开{sideText}\n\nsymbol：{symbol}\nprice：{current_price}\ntake_profit_price：{take_profit_price}\nstop_loss_price：{stop_loss_price}\nside：{side}"
     # 邮件发送使用单独的线程, 防止阻塞主进程. 
     threading.Thread(target=send_email, args=(subject, body)).start()
+
+def send_email_for_alert_api_error(errorMsg):
+    subject = f"api报错"
+    body = f"api报错\n\n{errorMsg}"
+    threading.Thread(target=send_email, args=(subject, body)).start()
+
+# 冷却时间now
+cool_time = None
+
+# 1分钟触发一次
+def send_email_for_alert_api_error_1min(str):
+    global cool_time
+    if cool_time is None:
+        cool_time = time.time()
+    if time.time() - cool_time < 60:
+        return
+    cool_time = time.time()
+    threading.Thread(target=send_email_for_alert_api_error, args=("api错误", str)).start()
