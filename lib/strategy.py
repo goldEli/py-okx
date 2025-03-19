@@ -119,24 +119,10 @@ class Strategy:
                     continue
                 if self.is_long_upper_shadow(data):
                     self.callback(data, "short", self.amplitude)
-                    self.print_kline_data(data)
                 if self.is_long_lower_shadow(data):
                     self.callback(data, "long", self.amplitude)
-                    self.print_kline_data(data)
             time.sleep(1)
 
-    # print kline data
-    def print_kline_data(self, data):
-        print("--------------kline data------------------")
-        print(f"symbol：{data['symbol']}")
-        print(f"open：{data['open']}")
-        print(f"close：{data['close']}")
-        print(f"high：{data['high']}")
-        print(f"low：{data['low']}")
-        print(f"是否是上引线：{self.is_long_upper_shadow(data)}")
-        print(f"是否是下引线：{self.is_long_lower_shadow(data)}")
-        print(f"振幅：{self.amplitude}")
-        print("--------------kline data------------------")
 
     def print_time(self):
         while True:
