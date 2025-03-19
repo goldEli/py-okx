@@ -32,7 +32,7 @@ class Strategy:
 
     # 设置振幅
     def set_amplitude(self, amplitude):
-        if amplitude < 0.01:
+        if amplitude < 0.08:
             self.amplitude = 0.003
             return
         self.amplitude = 0.005
