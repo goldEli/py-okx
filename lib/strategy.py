@@ -16,6 +16,13 @@ bias = 0.97
 symbol_list = get_symbol_list()
 # symbol_list = ['ETH-USDT-SWAP']
 
+
+# print strategy
+def print_strategy(msg):
+    print("-----------策略----------")
+    print(f"策略：{msg}")
+    print("-------------------------")
+
 class Strategy:
     def __init__(self):
         print("官式引线大法策略初始化完成")
@@ -71,11 +78,13 @@ class Strategy:
         # 冲顶上影线
         if (upper_shadow_length / high) > multiple/4 and high > high_1d * bias:
             self.set_amplitude(1)
+            print_strategy("冲顶上影线")
             return True
         
         
         if (upper_shadow_length / high) > multiple:
             self.set_amplitude(upper_shadow_length / high)
+            print_strategy("普通上影线")
             return True
 
         return False    
@@ -107,6 +116,7 @@ class Strategy:
         # 冲底下影线 
         if lower_shadow_length/(lower_shadow_length + h2) > multiple/4 and low < low_1d * bias:
             self.set_amplitude(1)
+            print_strategy("冲底下影线")
             return True
 
         # 上引线长度是下引线长度的5倍, 上影线是蜡烛的5倍
@@ -114,6 +124,7 @@ class Strategy:
         # if low * bias < low_1d  and lower_shadow_length/(lower_shadow_length + h2) > multiple :
         if lower_shadow_length/(lower_shadow_length + h2) > multiple:
             self.set_amplitude(lower_shadow_length/(lower_shadow_length + h2))
+            print_strategy("普通下影线")
             return True
 
         return False    
