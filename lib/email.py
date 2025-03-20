@@ -56,12 +56,12 @@ def send_email_for_alert_api_error(errorMsg):
 # 冷却时间now
 cool_time = None
 
-# 10分钟触发一次
+# 延后10分钟触发
 def send_email_for_alert_api_error_1min(str):
     global cool_time
     if cool_time is None:
         cool_time = time.time()
-    if time.time() - cool_time < 60 * 10:
         return
-    cool_time = time.time()
+    if time.time() - cool_time > 60 * 30:
+        cool_time = None
     threading.Thread(target=send_email_for_alert_api_error, args=("api错误", str)).start()
