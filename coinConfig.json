@@ -34,7 +34,7 @@
     },
     "X-USDT-SWAP": {
         "sz": "2200",
-        "price_precision": 4
+        "price_precision": 8
     },
     "BNB-USDT-SWAP": {
         "sz": "700",
