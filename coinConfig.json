@@ -9,7 +9,7 @@
         "price_precision": 2
     },
     "TRUMP-USDT-SWAP": {
-        "sz": "700",
+        "sz": "2250",
         "price_precision": 3
     },
     "SOL-USDT-SWAP": {
@@ -34,6 +34,18 @@
     },
     "X-USDT-SWAP": {
         "sz": "2200",
+        "price_precision": 4
+    },
+    "BNB-USDT-SWAP": {
+        "sz": "700",
+        "price_precision": 1
+    },
+    "TRX-USDT-SWAP": {
+        "sz": "20",
+        "price_precision": 5
+    },
+    "IP-USDT-SWAP": {
+        "sz": "50",
         "price_precision": 4
     }
 }
