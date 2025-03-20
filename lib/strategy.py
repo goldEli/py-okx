@@ -67,6 +67,13 @@ class Strategy:
         # 1.1 + 11.331 = 12.431
         # 1.1 / 12.431 = 0.0884
         # if high > high_1d * bias and (upper_shadow_length / (upper_shadow_length + h1)) > multiple:
+
+        # 冲顶上影线
+        if (upper_shadow_length / high) > multiple/4 and high > high_1d * bias:
+            self.set_amplitude(1)
+            return True
+        
+        
         if (upper_shadow_length / high) > multiple:
             self.set_amplitude(upper_shadow_length / high)
             return True
@@ -80,6 +87,8 @@ class Strategy:
         open = float(data['open'])
         close = float(data['close'])
         low = float(data['low'])
+        low_1d = float(data['1d_low'])
+        high_1d = float(data['1d_high'])
 
         h1 = 0 # 10.726
         h2 = 0 # 10.683
@@ -94,6 +103,11 @@ class Strategy:
         upper_shadow_length = abs(high - h1)
         # 下引线长度
         lower_shadow_length = abs(h2 - low) # 10.726 - 8 = 2.726
+
+        # 冲底下影线 
+        if lower_shadow_length/(lower_shadow_length + h2) > multiple/4 and low < low_1d * bias:
+            self.set_amplitude(1)
+            return True
 
         # 上引线长度是下引线长度的5倍, 上影线是蜡烛的5倍
         # print(low * bias, low_1d, lower_shadow_length/(lower_shadow_length + h2), multiple)
