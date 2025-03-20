@@ -3,7 +3,7 @@
 multiple = 0.008
 # multiple = 0.001
 
-bias = 0.97
+bias = 0.998
 
 # 是否是长上引线
 def is_long_upper_shadow(data):
@@ -37,7 +37,10 @@ def is_long_upper_shadow(data):
     # if high > high_1d * bias and (upper_shadow_length / (upper_shadow_length + h1)) > multiple:
 
     # 冲顶上影线
+    print((upper_shadow_length / high) > multiple/4, upper_shadow_length / high, multiple/4)
+    print(high > high_1d * bias, high, high_1d, high_1d * bias)
     if (upper_shadow_length / high) > multiple/4 and high > high_1d * bias:
+        print("冲顶上影线")
         return True
         
         
@@ -46,13 +49,18 @@ def is_long_upper_shadow(data):
 
     return False 
 
+# 开盘价：631.7
+# 最高价：633.7
+# 最低价：631.6
+# 收盘价：632.4
+
 data = {
-    'high': 132.40,
-    'open': 132.39,
-    'close': 131.24,
-    'low': 130.69,
-    '1d_high': 136.16,
-    '1d_low': 130.56
+    'high': 631.7,
+    'open': 633.7,
+    'close': 631.6,
+    'low': 632.4,
+    '1d_high': 637.5,
+    '1d_low': 602.1
 }
 
 print(is_long_upper_shadow(data))

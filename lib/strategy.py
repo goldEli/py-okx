@@ -9,7 +9,7 @@ from lib.acount import get_account_balance
 multiple = 0.008
 # multiple = 0.001
 
-bias = 0.97
+bias = 0.998
 
 # 交易对列表
 # 'TRUMP-USDT'
@@ -78,13 +78,13 @@ class Strategy:
         # 冲顶上影线
         if (upper_shadow_length / high) > multiple/4 and high > high_1d * bias:
             self.set_amplitude(1)
-            print_strategy("冲顶上影线")
+            # print_strategy("冲顶上影线")
             return True
         
         
         if (upper_shadow_length / high) > multiple:
             self.set_amplitude(upper_shadow_length / high)
-            print_strategy("普通上影线")
+            # print_strategy("普通上影线")
             return True
 
         return False    
