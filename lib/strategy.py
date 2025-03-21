@@ -155,10 +155,10 @@ class Strategy:
                     continue
                 is_long_upper_shadow, msg = self.is_long_upper_shadow(data)
                 if is_long_upper_shadow:
-                    self.callback({'data': data, 'direction': "short", 'amplitude': self.amplitude, msg: msg})
+                    self.callback({'data': data, 'direction': "short", 'amplitude': self.amplitude, 'msg': msg})
                 is_long_lower_shadow, msg = self.is_long_lower_shadow(data)
                 if is_long_lower_shadow:
-                    self.callback({'data': data, 'direction': "long", 'amplitude': self.amplitude, msg: msg})
+                    self.callback({'data': data, 'direction': "long", 'amplitude': self.amplitude, 'msg': msg})
             time.sleep(1)
 
 
