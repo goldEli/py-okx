@@ -77,11 +77,11 @@ class Strategy:
         # 是否是顶
         is_top = high > high_1d * top_bias
         # 是否是针(上影线是蜡烛的50%)
-        is_needle =  upper_shadow_length / candle_length > 0.5
+        is_needle = candle_length > 0 and upper_shadow_length / candle_length > 0.5
 
         strategy1 = is_upper and is_top and is_needle
         
-        strategy2 = is_top and upper_shadow_length / candle_length > 1
+        strategy2 = is_top and candle_length > 0 and upper_shadow_length / candle_length > 1
         # 冲顶上影线
         if strategy1 or strategy2:
             self.set_amplitude(1)
@@ -124,11 +124,11 @@ class Strategy:
         # 是否是底
         is_bottom = low < low_1d * top_bias
         # 是否是针(下影线是蜡烛的50%)
-        is_needle = lower_shadow_length / candle_length > 0.5
+        is_needle = candle_length > 0 and lower_shadow_length / candle_length > 0.5
 
         strategy1 = is_lower and is_bottom and is_needle
 
-        strategy2 = is_bottom and lower_shadow_length / candle_length > 1
+        strategy2 = is_bottom and candle_length > 0 and lower_shadow_length / candle_length > 1
         # 冲底下影线 
         if strategy1 or strategy2:
             self.set_amplitude(1)
