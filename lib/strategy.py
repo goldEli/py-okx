@@ -158,7 +158,7 @@ class Strategy:
                     self.callback({'data': data, 'direction': "short", 'amplitude': self.amplitude, msg: msg})
                 is_long_lower_shadow, msg = self.is_long_lower_shadow(data)
                 if is_long_lower_shadow:
-                    self.callback({'data': data, 'direction': "long", 'amplitude': self.amplitude})
+                    self.callback({'data': data, 'direction': "long", 'amplitude': self.amplitude, msg: msg})
             time.sleep(1)
 
 
