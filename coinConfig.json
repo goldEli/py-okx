@@ -33,7 +33,7 @@
         "price_precision": 4
     },
     "BNB-USDT-SWAP": {
-        "sz": "700",
+        "sz": "140",
         "price_precision": 1
     },
     "TRX-USDT-SWAP": {
