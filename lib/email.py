@@ -48,13 +48,21 @@ def send_email_for_trade(current_price, stop_loss_price, take_profit_price, side
     # 邮件发送使用单独的线程, 防止阻塞主进程. 
     threading.Thread(target=send_email, args=(subject, body)).start()
 
+
+# 冷却时间now
+cool_time = None
+
 def send_email_for_alert_api_error(errorMsg):
+    global cool_time
+    if cool_time is None:
+        cool_time = time.time()
+        return
+    if time.time() - cool_time > 60 * 30:
+        cool_time = None
     subject = f"api报错"
     body = f"api报错\n\n{errorMsg}"
     threading.Thread(target=send_email, args=(subject, body)).start()
 
-# 冷却时间now
-cool_time = None
 
 # 延后10分钟触发
 def send_email_for_alert_api_error_1min(str):
