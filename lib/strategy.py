@@ -77,7 +77,7 @@ class Strategy:
         # if high > high_1d * bias and (upper_shadow_length / (upper_shadow_length + h1)) > multiple:
 
         # 冲顶上影线
-        if (upper_shadow_length / high) > multiple/4 and high > high_1d * bias:
+        if (upper_shadow_length / high) > multiple/2 and high > high_1d * bias:
             self.set_amplitude(1)
             # print_strategy("冲顶上影线")
             return True
@@ -115,7 +115,7 @@ class Strategy:
         lower_shadow_length = abs(h2 - low) # 10.726 - 8 = 2.726
 
         # 冲底下影线 
-        if lower_shadow_length/(lower_shadow_length + h2) > multiple/4 and low < low_1d * bias:
+        if lower_shadow_length/(lower_shadow_length + h2) > multiple/2 and low < low_1d * bias:
             self.set_amplitude(1)
             print_strategy("冲底下影线")
             return True
