@@ -166,5 +166,5 @@ class Strategy:
         while True:
             print(f"当前时间：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
             get_account_balance()
-            time.sleep(8 * 60 * 60) # 8小时打印一次
+            time.sleep(1 * 60 * 60) # 8小时打印一次
 
