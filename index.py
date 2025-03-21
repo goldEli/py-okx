@@ -27,7 +27,12 @@ order_status = {
 # place_market_order('BTC-USDT-SWAP', 'long', 1900.11)
 
 # 注册回调
-def callback(data, direction, amplitude):
+def callback(options):
+
+    data = options['data']
+    direction = options['direction']
+    amplitude = options['amplitude']
+    msg = options['msg']
     # 获取时间戳
     timestamp = data['timestamp']
     # 如果时间戳在cache中，则不执行
@@ -41,6 +46,7 @@ def callback(data, direction, amplitude):
     cache[timestamp] = True
     print("--------------------------")
     print("官式引线大法触发")
+    print(f"策略：{msg}")
     print(f"交易对：{data['symbol']}")
     print(f"时间：{datetime.fromtimestamp(int(data['timestamp']) / 1000).strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"最新价：{data['last_price']}")

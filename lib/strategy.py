@@ -6,10 +6,9 @@ import threading
 from lib.acount import get_account_balance
 
 # 倍数
-multiple = 0.008
-# multiple = 0.001
-
-bias = 0.998
+multiple = 0.02
+top_multiple = 0.004
+top_bias = 0.998
 
 # 交易对列表
 # 'TRUMP-USDT'
@@ -70,25 +69,30 @@ class Strategy:
         upper_shadow_length = abs(high - h1) # 12.431 - 11.331 = 1.1
         # 下引线长度
         lower_shadow_length = abs(h2 - low) # 10.435 - 10.425 = 0.01
+        # 蜡烛长度
+        candle_length = abs(h1 - h2) 
 
-        # 上引线长度是下引线长度的5倍, 上影线是蜡烛的5倍
-        # 1.1 + 11.331 = 12.431
-        # 1.1 / 12.431 = 0.0884
-        # if high > high_1d * bias and (upper_shadow_length / (upper_shadow_length + h1)) > multiple:
+        # 是否有上引线
+        is_upper = (upper_shadow_length / high) > top_multiple
+        # 是否是顶
+        is_top = high > high_1d * top_bias
+        # 是否是针(上影线是蜡烛的50%)
+        is_needle =  upper_shadow_length / candle_length > 0.5
 
+        strategy1 = is_upper and is_top and is_needle
+        
+        strategy2 = is_top and upper_shadow_length / candle_length > 2
         # 冲顶上影线
-        if (upper_shadow_length / high) > multiple/2 and high > high_1d * bias:
+        if strategy1 or strategy2:
             self.set_amplitude(1)
-            # print_strategy("冲顶上影线")
-            return True
+            return True, "冲顶上影线"
         
         
         if (upper_shadow_length / high) > multiple:
             self.set_amplitude(upper_shadow_length / high)
-            # print_strategy("普通上影线")
-            return True
+            return True, "普通上影线"
 
-        return False    
+        return False, None    
 
 
     # 是否是长下引线
@@ -99,6 +103,7 @@ class Strategy:
         low = float(data['low'])
         low_1d = float(data['1d_low'])
         high_1d = float(data['1d_high'])
+        candle_length = abs(open - close)
 
         h1 = 0 # 10.726
         h2 = 0 # 10.683
@@ -114,21 +119,27 @@ class Strategy:
         # 下引线长度
         lower_shadow_length = abs(h2 - low) # 10.726 - 8 = 2.726
 
-        # 冲底下影线 
-        if lower_shadow_length/(lower_shadow_length + h2) > multiple/2 and low < low_1d * bias:
-            self.set_amplitude(1)
-            print_strategy("冲底下影线")
-            return True
+        # 是否有下引线
+        is_lower = lower_shadow_length/(lower_shadow_length + h2) > top_multiple
+        # 是否是底
+        is_bottom = low < low_1d * top_bias
+        # 是否是针(下影线是蜡烛的50%)
+        is_needle = lower_shadow_length / candle_length > 0.5
 
-        # 上引线长度是下引线长度的5倍, 上影线是蜡烛的5倍
-        # print(low * bias, low_1d, lower_shadow_length/(lower_shadow_length + h2), multiple)
-        # if low * bias < low_1d  and lower_shadow_length/(lower_shadow_length + h2) > multiple :
+        strategy1 = is_lower and is_bottom and is_needle
+
+        strategy2 = is_bottom and lower_shadow_length / candle_length > 2
+        # 冲底下影线 
+        if strategy1 or strategy2:
+            self.set_amplitude(1)
+            return True, "冲底下影线"
+
+        # 普通下影线
         if lower_shadow_length/(lower_shadow_length + h2) > multiple:
             self.set_amplitude(lower_shadow_length/(lower_shadow_length + h2))
-            print_strategy("普通下影线")
-            return True
+            return True, "普通下影线"
 
-        return False    
+        return False, None    
 
 
     # 执行策略
@@ -142,10 +153,12 @@ class Strategy:
                 data = get_kline_data(symbol)
                 if data is None:
                     continue
-                if self.is_long_upper_shadow(data):
-                    self.callback(data, "short", self.amplitude)
-                if self.is_long_lower_shadow(data):
-                    self.callback(data, "long", self.amplitude)
+                is_long_upper_shadow, msg = self.is_long_upper_shadow(data)
+                if is_long_upper_shadow:
+                    self.callback({'data': data, 'direction': "short", 'amplitude': self.amplitude, msg: msg})
+                is_long_lower_shadow, msg = self.is_long_lower_shadow(data)
+                if is_long_lower_shadow:
+                    self.callback({'data': data, 'direction': "long", 'amplitude': self.amplitude})
             time.sleep(1)
 
 
