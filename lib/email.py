@@ -79,8 +79,10 @@ def send_email_for_alert_api_error(errorMsg):
     if cool_time is None:
         cool_time = time.time()
         return
-    if time.time() - cool_time > 60 * 30:
-        cool_time = None
+    if time.time() - cool_time < 60 * 30:
+        return
+
+    cool_time = None
     subject = f"api报错"
     body = f"api报错\n\n{errorMsg}"
     threading.Thread(target=send_email, args=(subject, body)).start()
