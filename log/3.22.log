@@ -1,0 +1,414 @@
+数据:实盘
+官式引线大法策略初始化完成
+--------------------------------
+监控的交易对：['BTC-USDT-SWAP', 'ETH-USDT-SWAP', 'TRUMP-USDT-SWAP', 'SOL-USDT-SWAP', 'TON-USDT-SWAP', 'DOGE-USDT-SWAP', 'ADA-USDT-SWAP', 'XRP-USDT-SWAP', 'BNB-USDT-SWAP', 'TRX-USDT-SWAP']
+监控中。。。
+当前时间：2025-03-21 22:47:41
+usdt_balance 463.56359275315253
+开始下单: BNB-USDT-SWAP short 635.4 700
+side sell
+posSide short
+tpOrdPx 633.5
+slOrdPx 637.3
+--------------------------------
+{'code': '0', 'data': [{'clOrdId': '', 'ordId': '2351027039247245312', 'sCode': '0', 'sMsg': 'Order placed', 'tag': '', 'ts': '1742568465765'}], 'inTime': '1742568465765310', 'msg': '', 'outTime': '1742568465766540'}
+Successful order request，order_id =  2351027039247245312
+--------------------------
+官式引线大法触发
+策略：冲顶上影线
+交易对：BNB-USDT-SWAP
+时间：2025-03-21 22:30:00
+最新价：635.4
+开盘价：636.2
+最高价：637.5
+最低价：635.4
+收盘价：636.1
+方向：做空
+邮件发送成功！
+获取1天K线数据失败TRX-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+当前时间：2025-03-21 23:47:42
+usdt_balance 465.3516027531525
+获取1天K线数据失败TRX-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+开始下单: ETH-USDT-SWAP short 1950.32 4
+side sell
+posSide short
+tpOrdPx 1944.47
+slOrdPx 1956.17
+--------------------------------
+{'code': '0', 'data': [{'clOrdId': '', 'ordId': '2351172543276883968', 'sCode': '0', 'sMsg': 'Order placed', 'tag': '', 'ts': '1742572802123'}], 'inTime': '1742572802123155', 'msg': '', 'outTime': '1742572802124316'}
+Successful order request，order_id =  2351172543276883968
+--------------------------
+官式引线大法触发
+策略：冲顶上影线
+交易对：ETH-USDT-SWAP
+时间：2025-03-21 23:30:00
+最新价：1950.32
+开盘价：1952.14
+最高价：1958.51
+最低价：1948.73
+收盘价：1950.74
+方向：做空
+开始下单: ADA-USDT-SWAP short 0.7036 12
+side sell
+posSide short
+tpOrdPx 0.7015
+slOrdPx 0.7057
+--------------------------------
+{'code': '0', 'data': [{'clOrdId': '', 'ordId': '2351172587199635456', 'sCode': '0', 'sMsg': 'Order placed', 'tag': '', 'ts': '1742572803432'}], 'inTime': '1742572803432434', 'msg': '', 'outTime': '1742572803433661'}
+Successful order request，order_id =  2351172587199635456
+--------------------------
+官式引线大法触发
+策略：冲顶上影线
+交易对：ADA-USDT-SWAP
+时间：2025-03-21 23:45:00
+最新价：0.7036
+开盘价：0.7034
+最高价：0.705
+最低价：0.7023
+收盘价：0.7036
+方向：做空
+邮件发送成功！
+邮件发送成功！
+获取1天K线数据失败TRX-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+开始下单: ETH-USDT-SWAP short 1959.43 4
+side sell
+posSide short
+tpOrdPx 1953.55
+slOrdPx 1965.31
+--------------------------------
+{'code': '0', 'data': [{'clOrdId': '', 'ordId': '2351232925483900928', 'sCode': '0', 'sMsg': 'Order placed', 'tag': '', 'ts': '1742574601653'}], 'inTime': '1742574601653044', 'msg': '', 'outTime': '1742574601655176'}
+Successful order request，order_id =  2351232925483900928
+--------------------------
+官式引线大法触发
+策略：冲顶上影线
+交易对：ETH-USDT-SWAP
+时间：2025-03-22 00:15:00
+最新价：1959.43
+开盘价：1958.71
+最高价：1962.79
+最低价：1953.34
+收盘价：1959.43
+方向：做空
+邮件发送成功！
+开始下单: BTC-USDT-SWAP short 83844.5 1
+side sell
+posSide short
+tpOrdPx 83593.0
+slOrdPx 84096.0
+--------------------------------
+{'code': '0', 'data': [{'clOrdId': '', 'ordId': '2351263183763382272', 'sCode': '0', 'sMsg': 'Order placed', 'tag': '', 'ts': '1742575503420'}], 'inTime': '1742575503420036', 'msg': '', 'outTime': '1742575503421249'}
+Successful order request，order_id =  2351263183763382272
+--------------------------
+官式引线大法触发
+策略：冲顶上影线
+交易对：BTC-USDT-SWAP
+时间：2025-03-22 00:30:00
+最新价：83844.5
+开盘价：83926.7
+最高价：84084
+最低价：83781.7
+收盘价：83834.6
+方向：做空
+邮件发送成功！
+当前时间：2025-03-22 00:47:43
+usdt_balance 301.30242815315256
+获取1天K线数据失败ADA-USDT-SWAP: The read operation timed out
+开始下单: TRX-USDT-SWAP short 0.23598 20
+side sell
+posSide short
+tpOrdPx 0.23527
+slOrdPx 0.23669
+--------------------------------
+{'code': '1', 'data': [{'clOrdId': '', 'ordId': '', 'sCode': '51008', 'sMsg': 'Order failed. Insufficient USDT balance in account. ', 'tag': '', 'ts': '1742576404719'}], 'inTime': '1742576404718299', 'msg': 'All operations failed', 'outTime': '1742576404719696'}
+Unsuccessful order request，error_code =  51008 , Error_message =  Order failed. Insufficient USDT balance in account.
+--------------------------
+官式引线大法触发
+策略：冲顶上影线
+交易对：TRX-USDT-SWAP
+时间：2025-03-22 00:45:00
+最新价：0.23598
+开盘价：0.23576
+最高价：0.23625
+最低价：0.23576
+收盘价：0.23598
+方向：做空
+邮件发送成功！
+开始下单: ADA-USDT-SWAP short 0.7104 12
+side sell
+posSide short
+tpOrdPx 0.7083
+slOrdPx 0.7125
+--------------------------------
+{'code': '0', 'data': [{'clOrdId': '', 'ordId': '2351323663076925440', 'sCode': '0', 'sMsg': 'Order placed', 'tag': '', 'ts': '1742577305844'}], 'inTime': '1742577305843887', 'msg': '', 'outTime': '1742577305845821'}
+Successful order request，order_id =  2351323663076925440
+--------------------------
+官式引线大法触发
+策略：冲顶上影线
+交易对：ADA-USDT-SWAP
+时间：2025-03-22 01:00:00
+最新价：0.7104
+开盘价：0.7098
+最高价：0.7114
+最低价：0.7077
+收盘价：0.7104
+方向：做空
+邮件发送成功！
+获取1天K线数据失败ADA-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+开始下单: ETH-USDT-SWAP short 1962.68 4
+side sell
+posSide short
+tpOrdPx 1956.79
+slOrdPx 1968.57
+--------------------------------
+{'code': '0', 'data': [{'clOrdId': '', 'ordId': '2351353796869464064', 'sCode': '0', 'sMsg': 'Order placed', 'tag': '', 'ts': '1742578203901'}], 'inTime': '1742578203900704', 'msg': '', 'outTime': '1742578203902911'}
+Successful order request，order_id =  2351353796869464064
+--------------------------
+官式引线大法触发
+策略：冲顶上影线
+交易对：ETH-USDT-SWAP
+时间：2025-03-22 01:15:00
+最新价：1962.68
+开盘价：1964.08
+最高价：1965.98
+最低价：1961.13
+收盘价：1962.52
+方向：做空
+邮件发送成功！
+获取1天K线数据失败ADA-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+当前时间：2025-03-22 01:47:43
+usdt_balance 375.99027335315253
+开始下单: BTC-USDT-SWAP short 84013.9 1
+side sell
+posSide short
+tpOrdPx 83761.9
+slOrdPx 84265.9
+--------------------------------
+{'code': '0', 'data': [{'clOrdId': '', 'ordId': '2351414151259856896', 'sCode': '0', 'sMsg': 'Order placed', 'tag': '', 'ts': '1742580002602'}], 'inTime': '1742580002602055', 'msg': '', 'outTime': '1742580002603326'}
+Successful order request，order_id =  2351414151259856896
+--------------------------
+官式引线大法触发
+策略：冲顶上影线
+交易对：BTC-USDT-SWAP
+时间：2025-03-22 01:45:00
+最新价：84013.9
+开盘价：84060.2
+最高价：84147.7
+最低价：83986.5
+收盘价：84013.9
+方向：做空
+邮件发送成功！
+获取1天K线数据失败ADA-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+获取1天K线数据失败ADA-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+开始下单: XRP-USDT-SWAP short 2.4082 4
+side sell
+posSide short
+tpOrdPx 2.401
+slOrdPx 2.4154
+--------------------------------
+{'code': '0', 'data': [{'clOrdId': '', 'ordId': '2351474509945217024', 'sCode': '0', 'sMsg': 'Order placed', 'tag': '', 'ts': '1742581801431'}], 'inTime': '1742581801430865', 'msg': '', 'outTime': '1742581801432073'}
+Successful order request，order_id =  2351474509945217024
+--------------------------
+官式引线大法触发
+策略：冲顶上影线
+交易对：XRP-USDT-SWAP
+时间：2025-03-22 02:15:00
+最新价：2.4082
+开盘价：2.4073
+最高价：2.4123
+最低价：2.4048
+收盘价：2.4082
+方向：做空
+邮件发送成功！
+获取1天K线数据失败ADA-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+开始下单: XRP-USDT-SWAP short 2.4139 4
+side sell
+posSide short
+tpOrdPx 2.4067
+slOrdPx 2.4211
+--------------------------------
+{'code': '0', 'data': [{'clOrdId': '', 'ordId': '2351504791511474176', 'sCode': '0', 'sMsg': 'Order placed', 'tag': '', 'ts': '1742582703892'}], 'inTime': '1742582703892269', 'msg': '', 'outTime': '1742582703893944'}
+Successful order request，order_id =  2351504791511474176
+--------------------------
+官式引线大法触发
+策略：冲顶上影线
+交易对：XRP-USDT-SWAP
+时间：2025-03-22 02:30:00
+最新价：2.4139
+开盘价：2.408
+最高价：2.4245
+最低价：2.4078
+收盘价：2.4139
+方向：做空
+邮件发送成功！
+当前时间：2025-03-22 02:47:44
+usdt_balance 412.3225882864859
+获取1天K线数据失败ADA-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+获取1天K线数据失败ADA-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+获取1天K线数据失败ADA-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+当前时间：2025-03-22 03:47:44
+usdt_balance 446.82391495315255
+获取1天K线数据失败ADA-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+开始下单: ETH-USDT-SWAP short 1973.65 4
+side sell
+posSide short
+tpOrdPx 1967.73
+slOrdPx 1979.57
+--------------------------------
+{'code': '0', 'data': [{'clOrdId': '', 'ordId': '2351686019904675841', 'sCode': '0', 'sMsg': 'Order placed', 'tag': '', 'ts': '1742588104919'}], 'inTime': '1742588104919006', 'msg': '', 'outTime': '1742588104921187'}
+Successful order request，order_id =  2351686019904675841
+--------------------------
+官式引线大法触发
+策略：冲顶上影线
+交易对：ETH-USDT-SWAP
+时间：2025-03-22 04:00:00
+最新价：1973.65
+开盘价：1973.45
+最高价：1978.38
+最低价：1972.41
+收盘价：1973.67
+方向：做空
+邮件发送成功！
+获取1天K线数据失败ADA-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+开始下单: ETH-USDT-SWAP short 1975.69 4
+side sell
+posSide short
+tpOrdPx 1969.76
+slOrdPx 1981.62
+--------------------------------
+{'code': '0', 'data': [{'clOrdId': '', 'ordId': '2351716145610596352', 'sCode': '0', 'sMsg': 'Order placed', 'tag': '', 'ts': '1742589002735'}], 'inTime': '1742589002735371', 'msg': '', 'outTime': '1742589002736583'}
+Successful order request，order_id =  2351716145610596352
+--------------------------
+官式引线大法触发
+策略：冲顶上影线
+交易对：ETH-USDT-SWAP
+时间：2025-03-22 04:15:00
+最新价：1975.69
+开盘价：1973.7
+最高价：1977.77
+最低价：1972.77
+收盘价：1975.69
+方向：做空
+邮件发送成功！
+获取1天K线数据失败ADA-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+开始下单: ETH-USDT-SWAP short 1976.14 4
+side sell
+posSide short
+tpOrdPx 1970.21
+slOrdPx 1982.07
+--------------------------------
+{'code': '0', 'data': [{'clOrdId': '', 'ordId': '2351746390938066944', 'sCode': '0', 'sMsg': 'Order placed', 'tag': '', 'ts': '1742589904116'}], 'inTime': '1742589904116176', 'msg': '', 'outTime': '1742589904118366'}
+Successful order request，order_id =  2351746390938066944
+--------------------------
+官式引线大法触发
+策略：冲顶上影线
+交易对：ETH-USDT-SWAP
+时间：2025-03-22 04:30:00
+最新价：1976.14
+开盘价：1975.69
+最高价：1978.29
+最低价：1974.72
+收盘价：1976.16
+方向：做空
+邮件发送成功！
+当前时间：2025-03-22 04:47:45
+usdt_balance 208.65495374815254
+开始下单: DOGE-USDT-SWAP short 0.16887 5
+side sell
+posSide short
+tpOrdPx 0.16836
+slOrdPx 0.16938
+--------------------------------
+{'code': '0', 'data': [{'clOrdId': '', 'ordId': '2351776607039627264', 'sCode': '0', 'sMsg': 'Order placed', 'tag': '', 'ts': '1742590804626'}], 'inTime': '1742590804625461', 'msg': '', 'outTime': '1742590804627750'}
+Successful order request，order_id =  2351776607039627264
+--------------------------
+官式引线大法触发
+策略：冲顶上影线
+交易对：DOGE-USDT-SWAP
+时间：2025-03-22 04:45:00
+最新价：0.16887
+开盘价：0.16877
+最高价：0.16909
+最低价：0.16857
+收盘价：0.16888
+方向：做空
+邮件发送成功！
+获取1天K线数据失败ADA-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+获取1天K线数据失败ADA-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+开始下单: BTC-USDT-SWAP short 84337.5 1
+side sell
+posSide short
+tpOrdPx 84084.5
+slOrdPx 84590.5
+--------------------------------
+{'code': '0', 'data': [{'clOrdId': '', 'ordId': '2351836942203330560', 'sCode': '0', 'sMsg': 'Order placed', 'tag': '', 'ts': '1742592602754'}], 'inTime': '1742592602753055', 'msg': '', 'outTime': '1742592602755366'}
+Successful order request，order_id =  2351836942203330560
+--------------------------
+官式引线大法触发
+策略：冲顶上影线
+交易对：BTC-USDT-SWAP
+时间：2025-03-22 05:15:00
+最新价：84337.5
+开盘价：84322.9
+最高价：84440.6
+最低价：84288.1
+收盘价：84337.5
+方向：做空
+邮件发送成功！
+获取1天K线数据失败ADA-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+开始下单: BTC-USDT-SWAP short 84380.1 1
+side sell
+posSide short
+tpOrdPx 84127.0
+slOrdPx 84633.2
+--------------------------------
+邮件发送成功！
+{'code': '0', 'data': [{'clOrdId': '', 'ordId': '2351867141896773632', 'sCode': '0', 'sMsg': 'Order placed', 'tag': '', 'ts': '1742593502775'}], 'inTime': '1742593502774807', 'msg': '', 'outTime': '1742593502776521'}
+Successful order request，order_id =  2351867141896773632
+--------------------------
+官式引线大法触发
+策略：冲顶上影线
+交易对：BTC-USDT-SWAP
+时间：2025-03-22 05:30:00
+最新价：84380.1
+开盘价：84337.6
+最高价：84579.9
+最低价：84335
+收盘价：84380
+方向：做空
+当前时间：2025-03-22 05:47:45
+usdt_balance 264.6425236481525
+开始下单: BNB-USDT-SWAP short 635.4 700
+side sell
+posSide short
+tpOrdPx 633.5
+slOrdPx 637.3
+--------------------------------
+{'code': '1', 'data': [{'clOrdId': '', 'ordId': '', 'sCode': '51008', 'sMsg': 'Order failed. Insufficient USDT balance in account. ', 'tag': '', 'ts': '1742594404696'}], 'inTime': '1742594404695114', 'msg': 'All operations failed', 'outTime': '1742594404696684'}
+Unsuccessful order request，error_code =  51008 , Error_message =  Order failed. Insufficient USDT balance in account.
+--------------------------
+官式引线大法触发
+策略：冲顶上影线
+交易对：BNB-USDT-SWAP
+时间：2025-03-22 05:45:00
+最新价：635.4
+开盘价：635.7
+最高价：636.2
+最低价：634.6
+收盘价：635.4
+方向：做空
+邮件发送成功！
+获取1天K线数据失败ADA-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+获取15分钟K线数据失败TON-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+获取1天K线数据失败TON-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+当前时间：2025-03-22 06:47:46
+usdt_balance 350.87085414815255
+获取1天K线数据失败TON-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+获取1天K线数据失败TON-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+获取1天K线数据失败TON-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+当前时间：2025-03-22 07:47:46
+usdt_balance 437.51639314815253
+获取1天K线数据失败TON-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+获取1天K线数据失败TON-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+获取1天K线数据失败TON-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
+当前时间：2025-03-22 08:47:47
+usdt_balance 437.51639314815253
