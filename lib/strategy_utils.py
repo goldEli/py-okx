@@ -42,7 +42,7 @@ def is_top_upper_strategy(data):
     # 是否是顶
     is_top = high > high_1d * top_bias
     # 是否是针(上影线是蜡烛的50%)
-    is_needle = candle_length > 0 and upper_shadow_length / candle_length > 0.5
+    is_needle = candle_length > 0 and upper_shadow_length / candle_length > 1
 
     strategy1 = is_upper and is_top and is_needle
         
@@ -66,7 +66,7 @@ def is_bottom_lower_strategy(data):
     # 是否是底
     is_bottom = low < low_1d * top_bias
     # 是否是针(下影线是蜡烛的50%)
-    is_needle = candle_length > 0 and lower_shadow_length / candle_length > 0.5
+    is_needle = candle_length > 0 and lower_shadow_length / candle_length > 1
 
     strategy1 = is_lower and is_bottom and is_needle
 

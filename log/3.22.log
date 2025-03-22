@@ -397,18 +397,3 @@ Unsuccessful order request，error_code =  51008 , Error_message =  Order failed
 收盘价：635.4
 方向：做空
 邮件发送成功！
-获取1天K线数据失败ADA-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
-获取15分钟K线数据失败TON-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
-获取1天K线数据失败TON-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
-当前时间：2025-03-22 06:47:46
-usdt_balance 350.87085414815255
-获取1天K线数据失败TON-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
-获取1天K线数据失败TON-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
-获取1天K线数据失败TON-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
-当前时间：2025-03-22 07:47:46
-usdt_balance 437.51639314815253
-获取1天K线数据失败TON-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
-获取1天K线数据失败TON-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
-获取1天K线数据失败TON-USDT-SWAP: <ConnectionTerminated error_code:ErrorCodes.NO_ERROR, last_stream_id:19999, additional_data:None>
-当前时间：2025-03-22 08:47:47
-usdt_balance 437.51639314815253
