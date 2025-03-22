@@ -39,5 +39,9 @@
     "TRX-USDT-SWAP": {
         "sz": "20",
         "price_precision": 5
+    },
+    "X-USDT-SWAP": {
+        "sz": "1600",
+        "price_precision": 8
     }
 }
