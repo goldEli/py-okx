@@ -2,7 +2,7 @@ import okx.Trade as Trade
 import okx.Account as Account
 from lib.config import get_okx_info
 from lib.config import get_coin_config
-from lib.email import send_email_for_trade
+# from lib.email import send_email_for_trade
 from lib.market import get_price_precision
 api_key, secret_key, passphrase, flag = get_okx_info()
 
@@ -67,7 +67,7 @@ def place_market_order(symbol, s, last_price, amplitude=0.008):
    print("slOrdPx", slOrdPx)
    print("--------------------------------")
 
-   send_email_for_trade(last_price, slOrdPx, tpOrdPx, side, symbol)
+#    send_email_for_trade(last_price, slOrdPx, tpOrdPx, side, symbol)
 
    # limit order
    result = trade_api.place_order(

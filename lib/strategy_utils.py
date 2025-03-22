@@ -46,7 +46,7 @@ def is_top_upper_strategy(data):
 
     strategy1 = is_upper and is_top and is_needle
         
-    strategy2 = is_top and candle_length > 0 and upper_shadow_length / candle_length > 1
+    strategy2 = is_top and candle_length > 0 and upper_shadow_length / candle_length > 2
 
     return strategy1 or strategy2
 
@@ -70,7 +70,7 @@ def is_bottom_lower_strategy(data):
 
     strategy1 = is_lower and is_bottom and is_needle
 
-    strategy2 = is_bottom and candle_length > 0 and lower_shadow_length / candle_length > 1
+    strategy2 = is_bottom and candle_length > 0 and lower_shadow_length / candle_length > 2
 
     return strategy1 or strategy2
 

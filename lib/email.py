@@ -6,6 +6,7 @@ from email.mime.multipart import MIMEMultipart
 from lib.config import get_email_info
 import threading
 import time
+from datetime import datetime
 
 email_info = get_email_info()
 
@@ -32,9 +33,11 @@ def send_email(subject, body):
         # 发送邮件
         server.sendmail(email_info['user'], email_info['to_email_list'], msg.as_string())
         print("邮件发送成功！")
+        print("--------------------------------")
 
     except Exception as e:
         print(f"邮件发送失败: {e}")
+        print("--------------------------------")
 
     finally:
         if server:
@@ -45,6 +48,25 @@ def send_email_for_trade(current_price, stop_loss_price, take_profit_price, side
     sideText = "多" if side == "buy" else "空"
     subject = f"告警提示"
     body = f"官式针法触发开{sideText}\n\nsymbol：{symbol}\nprice：{current_price}\ntake_profit_price：{take_profit_price}\nstop_loss_price：{stop_loss_price}\nside：{side}"
+    # 邮件发送使用单独的线程, 防止阻塞主进程. 
+    threading.Thread(target=send_email, args=(subject, body)).start()
+
+def send_email_for_trigger(data, direction):
+    symbol = data['symbol']
+    current_price = data['last_price']
+    high = data['high']
+    low = data['low']
+    open = data['open']
+    close = data['close']
+    high_1d = data['1d_high']
+    low_1d = data['1d_low']
+
+
+
+
+    sideText = "多" if direction == "long" else "空"
+    subject = f"告警提示"
+    body = f"官式针法触发开{sideText}\n\nsymbol：{symbol}\nprice：{current_price}\nhigh：{high}\nlow：{low}\nopen：{open}\nclose：{close}\nside：{direction}\n当天最高价：{high_1d}\n当天最低价：{low_1d}\n发生时间：{datetime.fromtimestamp(int(data['timestamp']) / 1000).strftime('%Y-%m-%d %H:%M:%S')}"
     # 邮件发送使用单独的线程, 防止阻塞主进程. 
     threading.Thread(target=send_email, args=(subject, body)).start()
 

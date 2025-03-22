@@ -7,7 +7,7 @@ from lib.acount import get_account_balance
 from lib.strategy import Strategy
 from datetime import datetime
 from lib.order import place_market_order
-
+from lib.email import send_email_for_trigger
 # get_account_balance()
 
 # 创建策略
@@ -42,6 +42,7 @@ def callback(options):
         return
     # order_status['is_order'] = True
     place_market_order(data['symbol'], direction, data['last_price'], amplitude)
+    send_email_for_trigger(data, direction)
     # 将时间戳加入cache
     cache[timestamp] = True
     print("--------------------------")
