@@ -51,7 +51,7 @@ def is_top_upper_strategy(data):
         
     strategy2 = is_top and candle_length > 0 and upper_shadow_length / candle_length > 2 and is_upper_greater_than_lower
 
-    return strategy1 or strategy2
+    return strategy1 
 
 # 是否是普通上影线策略
 def is_normal_upper_strategy(data):
@@ -79,7 +79,7 @@ def is_bottom_lower_strategy(data):
 
     strategy2 = is_bottom and candle_length > 0 and lower_shadow_length / candle_length > 2 and is_lower_greater_than_upper
 
-    return strategy1 or strategy2
+    return strategy1 
 
 # 是否是普通下影线策略
 def is_normal_lower_strategy(data):

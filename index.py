@@ -42,11 +42,13 @@ def callback(options):
         return
     # order_status['is_order'] = True
     place_market_order(data['symbol'], direction, data['last_price'], amplitude)
-    send_email_for_trigger(data, direction)
+    version = "2.0.0"
+    send_email_for_trigger(data, direction, version)
     # 将时间戳加入cache
     cache[timestamp] = True
     print("--------------------------")
     print("官式引线大法触发")
+    print(f"版本：{version}")
     print(f"策略：{msg}")
     print(f"交易对：{data['symbol']}")
     print(f"时间：{datetime.fromtimestamp(int(data['timestamp']) / 1000).strftime('%Y-%m-%d %H:%M:%S')}")
