@@ -39,10 +39,10 @@ def place_limit_order():
 # 获取止盈和止损
 def get_tp_sl(s, last_price, amplitude):
        if s == "long":
-              tpOrdPx = last_price * (1 + amplitude)
+              tpOrdPx = last_price * (1 + amplitude * 2)
               slOrdPx = last_price * (1 - amplitude)
        else:
-              tpOrdPx = last_price * (1 - amplitude)
+              tpOrdPx = last_price * (1 - amplitude * 2)
               slOrdPx = last_price * (1 + amplitude)
        return tpOrdPx, slOrdPx
 
