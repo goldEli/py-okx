@@ -13,7 +13,7 @@
         "price_precision": 3
     },
     "SOL-USDT-SWAP": {
-        "sz": "30",
+        "sz": "2",
         "price_precision": 2
     },
     "TON-USDT-SWAP": {
