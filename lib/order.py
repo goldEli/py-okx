@@ -68,7 +68,7 @@ def place_market_order(data, s, version, amplitude=0.008 ):
        s: s,
        tpOrdPx: tpOrdPx,
        slOrdPx: slOrdPx,
-       orderInfoMsg: ""
+       "orderInfoMsg": ""
    }
 
    print("开始下单:", symbol, s, last_price, sz)
