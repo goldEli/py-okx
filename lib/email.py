@@ -51,7 +51,11 @@ def send_email_for_trade(current_price, stop_loss_price, take_profit_price, side
     # 邮件发送使用单独的线程, 防止阻塞主进程. 
     threading.Thread(target=send_email, args=(subject, body)).start()
 
-def send_email_for_trigger(data, direction, version):
+
+def format_timestamp(timestamp):
+    return datetime.fromtimestamp(int(timestamp) / 1000).strftime('%Y-%m-%d %H:%M:%S')
+
+def send_email_for_trigger(data, orderInfo, version):
     symbol = data['symbol']
     current_price = data['last_price']
     high = data['high']
@@ -60,13 +64,26 @@ def send_email_for_trigger(data, direction, version):
     close = data['close']
     high_1d = data['1d_high']
     low_1d = data['1d_low']
-
-
-
-
+    direction = orderInfo['s']
+    tpOrdPx = orderInfo['tpOrdPx']
+    slOrdPx = orderInfo['slOrdPx']
+    
     sideText = "多" if direction == "long" else "空"
     subject = f"告警提示"
-    body = f"官式针法触发开{sideText}\n版本：{version}\nsymbol：{symbol}\nprice：{current_price}\nhigh：{high}\nlow：{low}\nopen：{open}\nclose：{close}\nside：{direction}\n当天最高价：{high_1d}\n当天最低价：{low_1d}\n发生时间：{datetime.fromtimestamp(int(data['timestamp']) / 1000).strftime('%Y-%m-%d %H:%M:%S')}"
+    body = f"""官式针法触发开{sideText}
+        版本：{version}
+        symbol：{symbol}
+        high：{high}
+        low：{low}
+        open：{open}
+        close：{close}
+        side：{direction}
+        当前价格：{current_price}
+        tp：{tpOrdPx}
+        sl：{slOrdPx}
+        当天最高价：{high_1d}
+        当天最低价：{low_1d}
+        发生时间：{format_timestamp(data['timestamp'])}"""
     # 邮件发送使用单独的线程, 防止阻塞主进程. 
     threading.Thread(target=send_email, args=(subject, body)).start()
 

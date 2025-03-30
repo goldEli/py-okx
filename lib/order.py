@@ -4,6 +4,8 @@ from lib.config import get_okx_info
 from lib.config import get_coin_config
 # from lib.email import send_email_for_trade
 from lib.market import get_price_precision
+from lib.email import send_email_for_trigger
+
 api_key, secret_key, passphrase, flag = get_okx_info()
 
 # print(api_key, secret_key, passphrase, flag)
@@ -47,7 +49,9 @@ def get_tp_sl(s, last_price, amplitude):
        return tpOrdPx, slOrdPx
 
 # 下市价委托单
-def place_market_order(symbol, s, last_price, amplitude=0.008):
+def place_market_order(data, s, version, amplitude=0.008 ):
+   symbol = data['symbol']
+   last_price = data['last_price'] 
    side = "buy" if s == "long" else "sell"
    posSide = "long" if s == "long" else "short"
    sz = get_coin_config()[symbol]["sz"]
@@ -59,6 +63,12 @@ def place_market_order(symbol, s, last_price, amplitude=0.008):
    # 一位小数
    tpOrdPx = round(tpOrdPx, price_precision)
    slOrdPx = round(slOrdPx, price_precision)
+
+   orderInfo = {
+       s: s,
+       tpOrdPx: tpOrdPx,
+       slOrdPx: slOrdPx,
+   }
 
    print("开始下单:", symbol, s, last_price, sz)
    print("side", side)
@@ -86,6 +96,7 @@ def place_market_order(symbol, s, last_price, amplitude=0.008):
        #     pxUsdt="100",
    )
    print(result)
+   send_email_for_trigger(data, orderInfo, version)
 
    if result["code"] == "0":
           print("Successful order request，order_id = ",result["data"][0]["ordId"])

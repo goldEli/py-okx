@@ -41,9 +41,8 @@ def callback(options):
     if timestamp in cache:
         return
     # order_status['is_order'] = True
-    place_market_order(data['symbol'], direction, data['last_price'], amplitude)
     version = "2.0.0"
-    send_email_for_trigger(data, direction, version)
+    place_market_order(data, direction, version, amplitude)
     # 将时间戳加入cache
     cache[timestamp] = True
     print("--------------------------")
