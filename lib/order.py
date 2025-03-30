@@ -68,6 +68,7 @@ def place_market_order(data, s, version, amplitude=0.008 ):
        s: s,
        tpOrdPx: tpOrdPx,
        slOrdPx: slOrdPx,
+       orderInfoMsg: ""
    }
 
    print("开始下单:", symbol, s, last_price, sz)
@@ -96,9 +97,16 @@ def place_market_order(data, s, version, amplitude=0.008 ):
        #     pxUsdt="100",
    )
    print(result)
-   send_email_for_trigger(data, orderInfo, version)
+
 
    if result["code"] == "0":
-          print("Successful order request，order_id = ",result["data"][0]["ordId"])
+       print("Successful order request，order_id = ",result["data"][0]["ordId"])
+
+       orderInfo["orderInfoMsg"] = f"""Successful order request，order_id = {result["data"][0]["ordId"]}"""
    else:
-          print("Unsuccessful order request，error_code = ",result["data"][0]["sCode"], ", Error_message = ", result["data"][0]["sMsg"])
+       print("Unsuccessful order request，error_code = ",result["data"][0]["sCode"], ", Error_message = ", result["data"][0]["sMsg"])
+
+       orderInfo["orderInfoMsg"] = f"""Unsuccessful order request，error_code = {result["data"][0]["sCode"]}, Error_message = {result["data"][0]["sMsg"]}"""
+
+   send_email_for_trigger(data, orderInfo, version)
+          

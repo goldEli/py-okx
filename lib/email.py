@@ -83,7 +83,8 @@ def send_email_for_trigger(data, orderInfo, version):
         sl：{slOrdPx}
         当天最高价：{high_1d}
         当天最低价：{low_1d}
-        发生时间：{format_timestamp(data['timestamp'])}"""
+        发生时间：{format_timestamp(data['timestamp'])}
+        订单情况：{orderInfo['orderInfoMsg']}"""
     # 邮件发送使用单独的线程, 防止阻塞主进程. 
     threading.Thread(target=send_email, args=(subject, body)).start()
 
