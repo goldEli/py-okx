@@ -56,6 +56,7 @@ def format_timestamp(timestamp):
     return datetime.fromtimestamp(int(timestamp) / 1000).strftime('%Y-%m-%d %H:%M:%S')
 
 def send_email_for_trigger(data, orderInfo, version):
+    print("orderInfo", orderInfo)
     symbol = data['symbol']
     current_price = data['last_price']
     high = data['high']
@@ -64,7 +65,7 @@ def send_email_for_trigger(data, orderInfo, version):
     close = data['close']
     high_1d = data['1d_high']
     low_1d = data['1d_low']
-    direction = orderInfo['s']
+    direction = orderInfo.get('s')
     tpOrdPx = orderInfo['tpOrdPx']
     slOrdPx = orderInfo['slOrdPx']
     

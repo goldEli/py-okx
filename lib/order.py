@@ -65,9 +65,9 @@ def place_market_order(data, s, version, amplitude=0.008 ):
    slOrdPx = round(slOrdPx, price_precision)
 
    orderInfo = {
-       s: s,
-       tpOrdPx: tpOrdPx,
-       slOrdPx: slOrdPx,
+       "s": s,
+       "tpOrdPx": tpOrdPx,
+       "slOrdPx": slOrdPx,
        "orderInfoMsg": ""
    }
 
