@@ -93,6 +93,16 @@ def getLastedCandle(candles):
     else:
         return None
 
+def getYearMouthDayHourMinuteSecond(timestamp):
+    year = time.strftime("%Y", time.localtime(timestamp))
+    month = time.strftime("%m", time.localtime(timestamp))
+    day = time.strftime("%d", time.localtime(timestamp))
+    hour = time.strftime("%H", time.localtime(timestamp))
+    return year + month + day + hour
+
+cacheData = {}
+
+
 def fetch_candles_periodically(symbol):
     try:
         while True:
@@ -107,6 +117,13 @@ def fetch_candles_periodically(symbol):
                         do_order(symbol, data, direction)
                         print_signals(long_signal, short_signal)
                         lastedCandle = getLastedCandle(result)
+                        currentTime = convertTimestamp(lastedCandle['timestamp'])
+                        currentTimeStr = getYearMouthDayHourMinuteSecond(lastedCandle['timestamp'])
+
+                        if currentTimeStr in cacheData:
+                            continue
+                        cacheData[currentTimeStr] = True
+
                         email_str = f"""
                         macd+rsi 
                         symbol：{symbol}
@@ -114,7 +131,7 @@ def fetch_candles_periodically(symbol):
                         high：{lastedCandle['high']}
                         low：{lastedCandle['low']}
                         open：{lastedCandle['open']}
-                        currentTime：{convertTimestamp(lastedCandle['timestamp'])}
+                        currentTime：{currentTime}
                         """
                         send_email_for_trigger_rsi_macd(email_str)
                 time.sleep(1)
