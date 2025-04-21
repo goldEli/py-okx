@@ -1,4 +1,5 @@
 
+from lib.email import send_email_for_trigger_rsi_macd
 from lib.market import get_candles
 import time
 import talib
@@ -100,7 +101,17 @@ def fetch_candles_periodically(symbol):
                 if long_signal is not None and short_signal is not None:  # 添加None检查
                     if long_signal or short_signal:
                         print_signals(long_signal, short_signal)
-                        getLastedCandle(result)
+                        lastedCandle = getLastedCandle(result)
+                        email_str = f"""
+                        macd+rsi 
+                        symbol：{symbol}
+                        currentPrice：{lastedCandle['close']}
+                        high：{lastedCandle['high']}
+                        low：{lastedCandle['low']}
+                        open：{lastedCandle['open']}
+                        currentTime：{convertTimestamp(lastedCandle['timestamp'])}
+                        """
+                        send_email_for_trigger_rsi_macd(email_str)
                 time.sleep(1)
             except Exception as e:
                 print(f"发生错误: {e}")

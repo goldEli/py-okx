@@ -116,3 +116,7 @@ def send_email_for_alert_api_error_1min(str):
     if time.time() - cool_time > 60 * 30:
         cool_time = None
     threading.Thread(target=send_email_for_alert_api_error, args=("api错误", str)).start()
+
+# trigger rsi and macd
+def send_email_for_trigger_rsi_macd(str):
+    threading.Thread(target=send_email_for_alert_api_error, args=("trigger 提醒", str)).start()
