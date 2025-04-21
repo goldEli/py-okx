@@ -1,4 +1,5 @@
 
+import re
 import okx.MarketData as MarketData
 from lib.config import get_okx_info
 from datetime import datetime
@@ -122,3 +123,38 @@ def get_current_price(symbol):
 
 def get_price_precision(symbol):
     return get_coin_config()[symbol]["price_precision"]
+
+
+
+def get_candles(symbol, timeframe="15m", limit=50):
+    # 获取 BTC-USDT 的 1 小时 K 线数据
+    # symbol = 'BTC-USDT'  # 交易对
+    symbol = symbol  # 交易对
+    timeframe = timeframe     # 时间周期（1 小时）
+    limit = limit          # 获取的 K 线数量（最多 100 条）
+
+    try:
+        # 调用 API 获取 K 线数据
+        candles = market_api.get_candlesticks(instId=symbol, bar=timeframe, limit=limit)
+    except Exception as e:
+        print(f"获取15分钟K线数据失败{symbol}: {e}")
+        send_email_for_alert_api_error(f"获取15分钟K线数据失败{symbol}: {e}")
+        return None
+
+    candlesList = []
+
+    for candle in candles['data']:
+        timestamp, open, high, low, close, volume, turn_over, turn_over_rate, count = candle
+        candlesList.append({
+            'timestamp': timestamp,
+            'open': open,
+            'high': high,
+            'low': low,
+            'close': close,
+            'volume': volume,
+            'turn_over': turn_over,
+            'turn_over_rate': turn_over_rate,
+            'count': count
+        })
+
+    return candlesList
