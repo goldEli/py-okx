@@ -78,8 +78,6 @@ def place_market_order(data, s, version, amplitude=0.008 ):
    print("slOrdPx", slOrdPx)
    print("--------------------------------")
 
-#    send_email_for_trade(last_price, slOrdPx, tpOrdPx, side, symbol)
-
    # limit order
    result = trade_api.place_order(
        instId=symbol,
@@ -109,4 +107,65 @@ def place_market_order(data, s, version, amplitude=0.008 ):
        orderInfo["orderInfoMsg"] = f"""Unsuccessful order request，error_code = {result["data"][0]["sCode"]}, Error_message = {result["data"][0]["sMsg"]}"""
 
    send_email_for_trigger(data, orderInfo, version)
+          
+
+# 下市价委托单
+def do_order(symbol, data, s, amplitude=0.008 ):
+   symbol = symbol
+   last_price = data['close'] 
+   side = "buy" if s == "long" else "sell"
+   posSide = "long" if s == "long" else "short"
+   sz = get_coin_config()[symbol]["sz"]
+
+   tpOrdPx, slOrdPx = get_tp_sl(s, last_price, amplitude)
+
+   price_precision = get_price_precision(symbol)
+
+   # 一位小数
+   tpOrdPx = round(tpOrdPx, price_precision)
+   slOrdPx = round(slOrdPx, price_precision)
+
+   orderInfo = {
+       "s": s,
+       "tpOrdPx": tpOrdPx,
+       "slOrdPx": slOrdPx,
+       "orderInfoMsg": ""
+   }
+
+   print("开始下单:", symbol, s, last_price, sz)
+   print("side", side)
+   print("posSide", posSide)
+   print("tpOrdPx", tpOrdPx)
+   print("slOrdPx", slOrdPx)
+   print("--------------------------------")
+
+   # limit order
+   result = trade_api.place_order(
+       instId=symbol,
+       tdMode="isolated",
+       side=side,
+       posSide=posSide,
+       ordType="market",
+       # 止盈
+       tpOrdPx=tpOrdPx,
+       tpTriggerPx=tpOrdPx,
+       # 止损
+       slOrdPx=slOrdPx,
+       slTriggerPx=slOrdPx,
+       sz=sz
+       #     pxUsdt="100",
+   )
+   print(result)
+
+
+   if result["code"] == "0":
+       print("Successful order request，order_id = ",result["data"][0]["ordId"])
+
+       orderInfo["orderInfoMsg"] = f"""Successful order request，order_id = {result["data"][0]["ordId"]}"""
+   else:
+       print("Unsuccessful order request，error_code = ",result["data"][0]["sCode"], ", Error_message = ", result["data"][0]["sMsg"])
+
+       orderInfo["orderInfoMsg"] = f"""Unsuccessful order request，error_code = {result["data"][0]["sCode"]}, Error_message = {result["data"][0]["sMsg"]}"""
+
+#    send_email_for_trigger(data, orderInfo, version)
           

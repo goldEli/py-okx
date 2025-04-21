@@ -2,6 +2,7 @@
 from lib.email import send_email_for_trigger_rsi_macd
 from lib.market import get_candles
 import time
+from lib.order import do_order
 import talib
 import numpy as np
 
@@ -100,6 +101,10 @@ def fetch_candles_periodically(symbol):
                 long_signal, short_signal = handle_candles(result)
                 if long_signal is not None and short_signal is not None:  # 添加None检查
                     if long_signal or short_signal:
+                        # version = "2.0.0"
+                        direction = "long" if long_signal else "short"
+                        data = result[-1]
+                        do_order(symbol, data, direction)
                         print_signals(long_signal, short_signal)
                         lastedCandle = getLastedCandle(result)
                         email_str = f"""
