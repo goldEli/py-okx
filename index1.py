@@ -51,11 +51,23 @@ def handle_candles(candles):
         
         # MACD金叉(快线上穿慢线)且RSI超卖(小于30)
         if latest_macd > latest_signal and latest_rsi < 30:
+            print("做多信号: 是")
+            print("RSI:", latest_rsi)
+            print("MACD:", latest_macd)
+            print("Signal:", latest_signal)
+            print("Histogram:", latest_histogram)
+            print("------------------------")
             long_signal = True
             return long_signal, short_signal
         
         # MACD死叉(快线下穿慢线)且RSI超买(大于70)
         if latest_macd < latest_signal and latest_rsi > 70:
+            print("做空信号: 是")
+            print("RSI:", latest_rsi)
+            print("MACD:", latest_macd)
+            print("Signal:", latest_signal)
+            print("Histogram:", latest_histogram)
+            print("------------------------")
             short_signal = True
             return long_signal, short_signal
         # 默认返回False, False
@@ -123,6 +135,7 @@ def fetch_candles_periodically(symbol):
     try:
         while True:
             result = get_candles(symbol)
+            # result = get_candles(symbol, "1m")
             long_signal, short_signal = handle_candles(result)
             # long_signal = True
             # short_signal = False
