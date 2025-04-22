@@ -1,6 +1,7 @@
 
+from datetime import datetime
 from lib.email import send_email_for_trigger_rsi_macd
-from lib.market import get_candles
+from lib.market import get_candles, get_current_price
 import time
 from lib.order import do_order
 import talib
@@ -71,73 +72,86 @@ def print_signals(long_signal, short_signal):
     print("------------------------")
 
 # 2025-01-01 00:00:00
-def convertTimestamp(timestamp):
-    timestamp = int(timestamp)
-    time_local = time.localtime(timestamp)
-    dt = time.strftime("%Y-%m-%d %H:%M:%S", time_local)
-    return dt
+def convertTimestamp(timestamp_str):
+
+    # 1. 转换为整数（毫秒）
+    timestamp = int(timestamp_str)
+
+    # 2. 转换为 datetime 对象（UTC 时间）
+    dt = datetime.fromtimestamp(timestamp / 1000)
+
+    # 3. 格式化为字符串（例如：YYYY-MM-DD HH:MM:SS）
+    formatted_time = dt.strftime("%Y-%m-%d %H:%M:%S")
+    return formatted_time
 
 def getLastedCandle(candles):
     if len(candles) > 0:
         lastedCandle = candles[-1]
         print("最新K线:")
-        print("时间:", convertTimestamp(lastedCandle['timestamp']))
+        # print("时间:", convertTimestamp(lastedCandle['timestamp']))
+        print("时间:", lastedCandle['timestamp'])
         print("开盘价:", lastedCandle['open'])
         print("收盘价:", lastedCandle['close'])
         print("最高价:", lastedCandle['high'])
         print("最低价:", lastedCandle['low'])
         print("成交量:", lastedCandle['volume'])
-        print("成交额:", lastedCandle['turnover'])
+        # print("成交额:", lastedCandle['turnover'])
         print("------------------------")
         return lastedCandle
     else:
         return None
 
-def getYearMouthDayHourMinuteSecond(timestamp):
-    year = time.strftime("%Y", time.localtime(timestamp))
-    month = time.strftime("%m", time.localtime(timestamp))
-    day = time.strftime("%d", time.localtime(timestamp))
-    hour = time.strftime("%H", time.localtime(timestamp))
+def getYearMouthDayHourMinuteSecond(timestamp_str):
+
+    # 1. 转换为整数（毫秒）
+    timestamp = int(timestamp_str)
+
+    # 2. 转换为 datetime 对象（UTC 时间）
+    dt = datetime.fromtimestamp(timestamp / 1000)
+
+    year = dt.strftime("%Y")
+    month = dt.strftime("%m")
+    day = dt.strftime("%d")
+    hour = dt.strftime("%H")
     return year + month + day + hour
 
 cacheData = {}
 
 
+interval = 1 * 1000
 def fetch_candles_periodically(symbol):
     try:
         while True:
-            try:
-                result = get_candles(symbol)
-                long_signal, short_signal = handle_candles(result)
-                if long_signal is not None and short_signal is not None:  # 添加None检查
-                    if long_signal or short_signal:
-                        # version = "2.0.0"
-                        direction = "long" if long_signal else "short"
-                        data = result[-1]
-                        do_order(symbol, data, direction)
-                        print_signals(long_signal, short_signal)
-                        lastedCandle = getLastedCandle(result)
-                        currentTime = convertTimestamp(lastedCandle['timestamp'])
-                        currentTimeStr = getYearMouthDayHourMinuteSecond(lastedCandle['timestamp'])
+            result = get_candles(symbol)
+            long_signal, short_signal = handle_candles(result)
+            if long_signal is not None and short_signal is not None:  # 添加None检查
+                if long_signal or short_signal:
+                    # version = "2.0.0"
+                    direction = "long" if long_signal else "short"
+                    # data = result[-1]
+                    d = get_current_price(symbol)
+                    do_order(symbol, d, direction)
+                    print_signals(long_signal, short_signal)
+                    lastedCandle = getLastedCandle(result)
+                    currentTime = convertTimestamp(lastedCandle['timestamp'])
+                    currentTimeStr = getYearMouthDayHourMinuteSecond(lastedCandle['timestamp'])
 
-                        if currentTimeStr in cacheData:
-                            continue
-                        cacheData[currentTimeStr] = True
+                    if currentTimeStr in cacheData:
+                        continue
+                    cacheData[currentTimeStr] = True
 
-                        email_str = f"""
-                        macd+rsi 
-                        symbol：{symbol}
-                        currentPrice：{lastedCandle['close']}
-                        high：{lastedCandle['high']}
-                        low：{lastedCandle['low']}
-                        open：{lastedCandle['open']}
-                        currentTime：{currentTime}
-                        """
-                        send_email_for_trigger_rsi_macd(email_str)
-                time.sleep(1)
-            except Exception as e:
-                print(f"发生错误: {e}")
-                time.sleep(1)
+                    email_str = f"""
+                    macd+rsi 
+                    symbol：{symbol}
+                    currentPrice：{lastedCandle['close']}
+                    high：{lastedCandle['high']}
+                    low：{lastedCandle['low']}
+                    open：{lastedCandle['open']}
+                    currentTime：{currentTime}
+                    """
+                    send_email_for_trigger_rsi_macd(email_str)
+            time.sleep(interval)
+          
     except KeyboardInterrupt:
         print("\n程序已停止")
 

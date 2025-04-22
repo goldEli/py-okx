@@ -112,7 +112,7 @@ def place_market_order(data, s, version, amplitude=0.008 ):
 # 下市价委托单
 def do_order(symbol, data, s, amplitude=0.008 ):
    symbol = symbol
-   last_price = data['close'] 
+   last_price =  float(data['last_price'])
    side = "buy" if s == "long" else "sell"
    posSide = "long" if s == "long" else "short"
    sz = get_coin_config()[symbol]["sz"]

@@ -119,4 +119,8 @@ def send_email_for_alert_api_error_1min(str):
 
 # trigger rsi and macd
 def send_email_for_trigger_rsi_macd(str):
-    threading.Thread(target=send_email_for_alert_api_error, args=("trigger 提醒", str)).start()
+    print(str)
+    subject = f"告警提示"
+    body = str
+    # 邮件发送使用单独的线程, 防止阻塞主进程. 
+    threading.Thread(target=send_email, args=(subject, body)).start()
