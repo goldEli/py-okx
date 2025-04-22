@@ -87,16 +87,16 @@ def convertTimestamp(timestamp_str):
 def getLastedCandle(candles):
     if len(candles) > 0:
         lastedCandle = candles[-1]
-        print("最新K线:")
-        # print("时间:", convertTimestamp(lastedCandle['timestamp']))
-        print("时间:", lastedCandle['timestamp'])
-        print("开盘价:", lastedCandle['open'])
-        print("收盘价:", lastedCandle['close'])
-        print("最高价:", lastedCandle['high'])
-        print("最低价:", lastedCandle['low'])
-        print("成交量:", lastedCandle['volume'])
-        # print("成交额:", lastedCandle['turnover'])
-        print("------------------------")
+        # print("最新K线:")
+        # # print("时间:", convertTimestamp(lastedCandle['timestamp']))
+        # print("时间:", lastedCandle['timestamp'])
+        # print("开盘价:", lastedCandle['open'])
+        # print("收盘价:", lastedCandle['close'])
+        # print("最高价:", lastedCandle['high'])
+        # print("最低价:", lastedCandle['low'])
+        # print("成交量:", lastedCandle['volume'])
+        # # print("成交额:", lastedCandle['turnover'])
+        # print("------------------------")
         return lastedCandle
     else:
         return None
@@ -124,21 +124,23 @@ def fetch_candles_periodically(symbol):
         while True:
             result = get_candles(symbol)
             long_signal, short_signal = handle_candles(result)
+            # long_signal = True
+            # short_signal = False
             if long_signal is not None and short_signal is not None:  # 添加None检查
                 if long_signal or short_signal:
+                    lastedCandle = getLastedCandle(result)
+                    currentTime = convertTimestamp(lastedCandle['timestamp'])
+                    currentTimeStr = getYearMouthDayHourMinuteSecond(lastedCandle['timestamp'])
+                    if currentTimeStr in cacheData:
+                        continue
+                    cacheData[currentTimeStr] = True
                     # version = "2.0.0"
                     direction = "long" if long_signal else "short"
                     # data = result[-1]
                     d = get_current_price(symbol)
                     do_order(symbol, d, direction)
                     print_signals(long_signal, short_signal)
-                    lastedCandle = getLastedCandle(result)
-                    currentTime = convertTimestamp(lastedCandle['timestamp'])
-                    currentTimeStr = getYearMouthDayHourMinuteSecond(lastedCandle['timestamp'])
 
-                    if currentTimeStr in cacheData:
-                        continue
-                    cacheData[currentTimeStr] = True
 
                     email_str = f"""
                     macd+rsi 
