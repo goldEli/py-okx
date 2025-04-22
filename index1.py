@@ -118,7 +118,7 @@ def getYearMouthDayHourMinuteSecond(timestamp_str):
 cacheData = {}
 
 
-interval = 1 * 1000
+interval = 1
 def fetch_candles_periodically(symbol):
     try:
         while True:
