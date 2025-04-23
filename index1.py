@@ -22,6 +22,15 @@ def calculate_rsi(candles, period=56):
     rsi = talib.RSI(close_prices, timeperiod=period)
     return rsi
 
+globalData = {
+    "latest_macd": 0,
+    "latest_signal": 0,
+    "latest_histogram": 0,
+    "latest_rsi": 0,
+    "latest_k": 0,
+    "latest_d": 0,
+}
+
 # 随机指标计算
 def calculate_stochastic(candles, fastk_period=56, slowk_period=12, slowd_period=12):
     high_prices = np.array([float(candle['high']) for candle in candles])
@@ -35,6 +44,7 @@ def calculate_stochastic(candles, fastk_period=56, slowk_period=12, slowd_period
 
 
 def handle_candles(candles):
+    global globalData
     try:
         # 确保candles是列表且不为空
         if not isinstance(candles, list) or len(candles) == 0:
@@ -60,6 +70,13 @@ def handle_candles(candles):
         latest_rsi = rsi[-1]
         latest_k = k_line[-1]
         latest_d = d_line[-1]
+
+        globalData['latest_macd'] = latest_macd
+        globalData['latest_signal'] = latest_signal
+        globalData['latest_histogram'] = latest_histogram
+        globalData['latest_rsi'] = latest_rsi
+        globalData['latest_k'] = latest_k
+        globalData['latest_d'] = latest_d
         
         # 判断逻辑
         long_signal = False
@@ -74,27 +91,11 @@ def handle_candles(candles):
         
         # MACD金叉(快线上穿慢线)且RSI超卖(小于10)且随机指标超卖
         if latest_macd > latest_signal and latest_k < 10 and latest_d < 10:
-            print("做多信号")
-            print("RSI:", latest_rsi)
-            print("随机K:", latest_k)
-            print("随机D:", latest_d)
-            print("latest_macd:", latest_macd)
-            print("latest_signal:", latest_signal)
-            print("Histogram:", latest_histogram)
-            print("------------------------")
             long_signal = True
             return long_signal, short_signal
         
         # MACD死叉(快线下穿慢线)且RSI超买(大于90)且随机指标超买
         if latest_macd < latest_signal and  latest_k > 90 and latest_d > 90:
-            print("做空信号")
-            print("RSI:", latest_rsi)
-            print("随机K:", latest_k)
-            print("随机D:", latest_d)
-            print("latest_macd:", latest_macd)
-            print("latest_signal:", latest_signal)
-            print("Histogram:", latest_histogram)
-            print("------------------------")
             short_signal = True
             return long_signal, short_signal
         # 默认返回False, False
@@ -186,11 +187,16 @@ def fetch_candles_periodically(symbol):
                     macd+rsi 
                     symbol：{symbol}
                     currentPrice：{lastedCandle['close']}
-                    high：{lastedCandle['high']}
-                    low：{lastedCandle['low']}
-                    open：{lastedCandle['open']}
                     currentTime：{currentTime}
+                    latest_rsi：{globalData['latest_rsi']}
+                    latest_k：{globalData['latest_k']}
+                    latest_d：{globalData['latest_d']}
+                    latest_macd：{globalData['latest_macd']}
+                    latest_signal：{globalData['latest_signal']}
+                    latest_histogram：{globalData['latest_histogram']}
                     """
+                    print(email_str)
+                    print("________________________")
                     send_email_for_trigger_rsi_macd(email_str)
             time.sleep(interval)
           
