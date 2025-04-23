@@ -64,13 +64,13 @@ def handle_candles(candles):
         # 判断逻辑
         long_signal = False
         short_signal = False
-        print("RSI:", latest_rsi)
-        print("随机K:", latest_k)
-        print("随机D:", latest_d)
-        print("MACD:", latest_macd)
-        print("Signal:", latest_signal)
-        print("Histogram:", latest_histogram)
-        print("------------------------")
+        # print("RSI:", latest_rsi)
+        # print("随机K:", latest_k)
+        # print("随机D:", latest_d)
+        # print("MACD:", latest_macd)
+        # print("Signal:", latest_signal)
+        # print("Histogram:", latest_histogram)
+        # print("------------------------")
         
         # MACD金叉(快线上穿慢线)且RSI超卖(小于10)且随机指标超卖
         if latest_macd > latest_signal and latest_k < 10 and latest_d < 10:
