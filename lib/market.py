@@ -126,7 +126,7 @@ def get_price_precision(symbol):
 
 
 
-def get_candles(symbol, timeframe="15m", limit=60):
+def get_candles(symbol, timeframe="15m", limit=100):
     # 获取 BTC-USDT 的 1 小时 K 线数据
     # symbol = 'BTC-USDT'  # 交易对
     symbol = symbol  # 交易对

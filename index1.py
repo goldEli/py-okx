@@ -15,24 +15,24 @@ def calculate_macd(candles, short_period=12, long_period=26, signal_period=9):
                                   slowperiod=long_period,
                                   signalperiod=signal_period)
     return macd, signal, hist
-# RSI 计算
+
+# RSI 指标计算
 def calculate_rsi(candles, period=56):
     close_prices = np.array([float(candle['close']) for candle in candles])
     rsi = talib.RSI(close_prices, timeperiod=period)
-    return rsi[-1] if rsi is not None and len(rsi) > 0 else 50  # 默认返回50作为中性值
+    return rsi
 
-# 计算随机指标
-def calculate_stochastic(candles, k_period=12, d_period=12, smooth_k=1):
+# 随机指标计算
+def calculate_stochastic(candles, fastk_period=56, slowk_period=12, slowd_period=12):
     high_prices = np.array([float(candle['high']) for candle in candles])
     low_prices = np.array([float(candle['low']) for candle in candles])
     close_prices = np.array([float(candle['close']) for candle in candles])
     k, d = talib.STOCH(high_prices, low_prices, close_prices,
-                       fastk_period=k_period,
-                       slowk_period=smooth_k,
-                       slowk_matype=0,
-                       slowd_period=d_period,
-                       slowd_matype=0)
-    return k[-1], d[-1] if k is not None and d is not None and len(k) > 0 and len(d) > 0 else (50, 50)  # 默认返回50作为中性值
+                       fastk_period=fastk_period,
+                       slowk_period=slowk_period,
+                       slowd_period=slowd_period)
+    return k, d
+
 
 def handle_candles(candles):
     try:
@@ -50,40 +50,49 @@ def handle_candles(candles):
             
         # 计算技术指标
         macd_line, signal_line, macd_histogram = calculate_macd(candles)
-        rsi = calculate_rsi(candles)  # 直接传入candles数据，而不是[float(candle['close'])...]
-        k, d = calculate_stochastic(candles)  # 计算随机指标
+        rsi = calculate_rsi(candles)
+        k_line, d_line = calculate_stochastic(candles)
         
         # 获取最新指标值
         latest_macd = macd_line[-1]
         latest_signal = signal_line[-1]
         latest_histogram = macd_histogram[-1]
-        latest_rsi = rsi
-        latest_k = k
-        latest_d = d
+        latest_rsi = rsi[-1]
+        latest_k = k_line[-1]
+        latest_d = d_line[-1]
         
         # 判断逻辑
         long_signal = False
         short_signal = False
+        print("RSI:", latest_rsi)
+        print("随机K:", latest_k)
+        print("随机D:", latest_d)
+        print("MACD:", latest_macd)
+        print("Signal:", latest_signal)
+        print("Histogram:", latest_histogram)
+        print("------------------------")
         
         # MACD金叉(快线上穿慢线)且RSI超卖(小于10)且随机指标超卖
-        if latest_macd > latest_signal and latest_rsi < 10 and latest_k < 10 and latest_d < 10:
-            print("做多信号: 是")
+        if latest_macd > latest_signal and latest_k < 10 and latest_d < 10:
+            print("做多信号")
             print("RSI:", latest_rsi)
             print("随机K:", latest_k)
             print("随机D:", latest_d)
-            print("MACD:", latest_macd)
-            print("Signal:", latest_signal)
+            print("latest_macd:", latest_macd)
+            print("latest_signal:", latest_signal)
             print("Histogram:", latest_histogram)
             print("------------------------")
             long_signal = True
             return long_signal, short_signal
         
         # MACD死叉(快线下穿慢线)且RSI超买(大于90)且随机指标超买
-        if latest_macd < latest_signal and latest_rsi > 90 and latest_k > 90 and latest_d > 90:
-            print("做空信号: 是")
+        if latest_macd < latest_signal and  latest_k > 90 and latest_d > 90:
+            print("做空信号")
             print("RSI:", latest_rsi)
-            print("MACD:", latest_macd)
-            print("Signal:", latest_signal)
+            print("随机K:", latest_k)
+            print("随机D:", latest_d)
+            print("latest_macd:", latest_macd)
+            print("latest_signal:", latest_signal)
             print("Histogram:", latest_histogram)
             print("------------------------")
             short_signal = True
@@ -148,7 +157,7 @@ def getYearMouthDayHourMinuteSecond(timestamp_str):
 cacheData = {}
 
 
-interval = 1
+interval = 0.5
 def fetch_candles_periodically(symbol):
     try:
         while True:
