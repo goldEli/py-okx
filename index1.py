@@ -126,17 +126,7 @@ def convertTimestamp(timestamp_str):
 
 def getLastedCandle(candles):
     if len(candles) > 0:
-        lastedCandle = candles[-1]
-        # print("最新K线:")
-        # # print("时间:", convertTimestamp(lastedCandle['timestamp']))
-        # print("时间:", lastedCandle['timestamp'])
-        # print("开盘价:", lastedCandle['open'])
-        # print("收盘价:", lastedCandle['close'])
-        # print("最高价:", lastedCandle['high'])
-        # print("最低价:", lastedCandle['low'])
-        # print("成交量:", lastedCandle['volume'])
-        # # print("成交额:", lastedCandle['turnover'])
-        # print("------------------------")
+        lastedCandle = candles[0]
         return lastedCandle
     else:
         return None
@@ -164,7 +154,17 @@ def fetch_candles_periodically(symbol):
         while True:
             # result = get_candles(symbol)
             result = get_candles(symbol, "1m")
-            long_signal, short_signal = handle_candles(result)
+            long_signal, short_signal = handle_candles(result[::-1])
+            # long_signal, short_signal = handle_candles(result)
+
+            # print("latest_macd", globalData["latest_macd"])
+            # print("latest_signal", globalData["latest_signal"])
+            # print("latest_histogram", globalData["latest_histogram"])
+            # print("latest_rsi", globalData["latest_rsi"])
+            # print("latest_k", globalData["latest_k"])
+            # print("latest_d", globalData["latest_d"])
+            # print("------------------------")
+
             # long_signal = True
             # short_signal = False
             if long_signal is not None and short_signal is not None:  # 添加None检查
@@ -186,6 +186,7 @@ def fetch_candles_periodically(symbol):
                     email_str = f"""
                     macd+rsi 
                     symbol：{symbol}
+                    direction：{direction}
                     currentPrice：{lastedCandle['close']}
                     currentTime：{currentTime}
                     latest_rsi：{globalData['latest_rsi']}
