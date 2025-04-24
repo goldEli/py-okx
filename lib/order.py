@@ -49,7 +49,7 @@ def get_tp_sl(s, last_price, amplitude):
        return tpOrdPx, slOrdPx
 
 # 下市价委托单
-def place_market_order(data, s, version, amplitude=0.008 ):
+def place_market_order(data, s, version, amplitude=0.004 ):
    symbol = data['symbol']
    last_price = data['last_price'] 
    side = "buy" if s == "long" else "sell"
